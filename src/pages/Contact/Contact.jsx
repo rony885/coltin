@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { SiX } from "react-icons/si";
 import { Link } from "react-router-dom";
 
+import contactInfoArray from "../../DataJs/contactInfo.js";
+import socialLinksArray from "../../DataJs/socialLinks.js";
+
 const Contact = () => {
+    const [contactInfo, setContactInfo] = useState([]);
+    const [socialLinks, setSocialLinks] = useState([]);
+  
+    useEffect(() => {
+      setContactInfo(contactInfoArray);
+      setSocialLinks(socialLinksArray);
+    }, []);
+
   return (
     <>
-      <div className="breadcrumb">
+      {/* <div className="breadcrumb">
         <div className="container">
           <div className="breadcrumbtitle">
             <h2>Contact</h2>
@@ -23,9 +34,9 @@ const Contact = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="page-contact">
+      <div className="page-contact mt-4">
         <div className="container">
           <h1 className="page-title">Contact</h1>
           <div className="contact-wrap">
@@ -105,31 +116,32 @@ const Contact = () => {
               </div>
             </div>
             <div className="contact-info">
-              <div className="contact-title">
-                <h4>Get In Touch!</h4>
+              <div className="contact-title">         
+                <h4>{contactInfo.title}</h4>
                 <div className="contact-sub">
-                  We'd love to hear from you - please use the form to send us
+                  {/* We'd love to hear from you - please use the form to send us
                   your message or ideas. <br />
-                  Or simply pop in for Link cup of fresh tea and Link cookie:
+                  Or simply pop in for Link cup of fresh tea and Link cookie: */}
+                  {contactInfo.description}
                 </div>
               </div>
               <div className="contact-info__content">
                 <ul className="list-unstyled">
                   <li>
                     <i className="icon-place"></i>
-                    <span>No 40 Baria Sreet 133/2 NewYork City, NY, USD.</span>
+                    <span>{contactInfo.address}</span>
                   </li>
                   <li>
                     <i className="icon-mail"></i>
-                    <span>contact@entrytheme.Com</span>
+                    <span>{contactInfo.email}</span>
                   </li>
                   <li>
                     <i className="icon-whatsapp"></i>
-                    <span>(800) 1234 8888 - (800) 1234 9999</span>
+                    <span>{contactInfo.phone}</span>
                   </li>
                   <li>
                     <i className="icon-time"></i>
-                    <span>Open Time: 8:00AM - 6:00PM</span>
+                    <span>{contactInfo.time}</span>
                   </li>
                 </ul>
               </div>

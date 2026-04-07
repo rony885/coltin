@@ -1,105 +1,4 @@
-// import React from "react";
-
-// const Team = () => {
-//   return (
-//     <div className="widget-ourteam owl-style1 flat-spacing-17">
-//       <div className="container">
-//         <div className="box-title justify-content-center">
-//           <h3>Meet Our Team</h3>
-//         </div>
-//         <div className="block-ourteam">
-//           <div
-//             className="featured-slider yt-content-slider owl-carousel"
-//             data-autoplay="yes"
-//             data-delay="1"
-//             data-speed="0.6"
-//             data-margin="30"
-//             data-items_column00="4"
-//             data-items_column0="4"
-//             data-items_column1="4"
-//             data-items_column2="3"
-//             data-items_column3="2"
-//             data-items_column4="1"
-//             data-arrows="yes"
-//             data-pagination="yes"
-//             data-lazyload="no"
-//             data-loop="no"
-//             data-hoverpause="yes"
-//           >
-//             <div className="item item-1">
-//               <div className="item-inn">
-//                 <div className="cl-image">
-//                   <img
-//                     className="img-product lazyloaded"
-//                     data-src="images/about-us/Team_1.jpg"
-//                     src="images/about-us/Team_1.jpg"
-//                     alt=""
-//                   />
-//                 </div>
-//                 <div className="item-content">
-//                   <h4 className="cl-title">Jenifer Aniston</h4>
-//                   <div className="cl-job">Pharmacist</div>
-//                 </div>
-//               </div>
-//             </div>
-//             <div className="item item-1">
-//               <div className="item-inn">
-//                 <div className="cl-image">
-//                   <img
-//                     className="img-product lazyloaded"
-//                     data-src="images/about-us/Team_2.jpg"
-//                     src="images/about-us/Team_2.jpg"
-//                     alt=""
-//                   />
-//                 </div>
-//                 <div className="item-content">
-//                   <h4 className="cl-title">Vladimir Radskin</h4>
-//                   <div className="cl-job">Founder, CEO</div>
-//                 </div>
-//               </div>
-//             </div>
-//             <div className="item item-1">
-//               <div className="item-inn">
-//                 <div className="cl-image">
-//                   <img
-//                     className="img-product lazyloaded"
-//                     data-src="images/about-us/Team_3.jpg"
-//                     src="images/about-us/Team_3.jpg"
-//                     alt=""
-//                   />
-//                 </div>
-//                 <div className="item-content">
-//                   <h4 className="cl-title">Michael Phelps</h4>
-//                   <div className="cl-job">Web Designer</div>
-//                 </div>
-//               </div>
-//             </div>
-//             <div className="item item-1">
-//               <div className="item-inn">
-//                 <div className="cl-image">
-//                   <img
-//                     className="img-product lazyloaded"
-//                     data-src="images/about-us/Team_4.jpg"
-//                     src="images/about-us/Team_4.jpg"
-//                     alt=""
-//                   />
-//                 </div>
-//                 <div className="item-content">
-//                   <h4 className="cl-title">Nina Burns</h4>
-//                   <div className="cl-job">Tech Leader</div>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Team;
-
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -107,41 +6,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const teamMembers = [
-  {
-    id: 1,
-    name: "Jenifer Aniston",
-    role: "Pharmacist",
-    img: "/images/about-us/Team_1.jpg",
-  },
-  {
-    id: 2,
-    name: "Vladimir Radskin",
-    role: "Founder, CEO",
-    img: "/images/about-us/Team_2.jpg",
-  },
-  {
-    id: 3,
-    name: "Michael Phelps",
-    role: "Web Designer",
-    img: "/images/about-us/Team_3.jpg",
-  },
-  {
-    id: 4,
-    name: "Nina Burns",
-    role: "Tech Leader",
-    img: "/images/about-us/Team_4.jpg",
-  },
-  {
-    id: 5,
-    name: "Vladimir Radskin",
-    role: "Founder, CEO",
-    img: "/images/about-us/Team_2.jpg",
-  },
-];
+import teamsArray from "../../DataJs/teams.js";
 
 const Team = () => {
   const swiperRef = useRef(null);
+  const [teams, setTeams] = useState([]);
+
+  useEffect(() => {
+    setTeams(teamsArray);
+  }, []);
 
   return (
     <Wrapper>
@@ -182,7 +55,7 @@ const Team = () => {
                 0: { slidesPerView: 1 },
               }}
             >
-              {teamMembers.map((member) => (
+              {teams.map((member) => (
                 <SwiperSlide key={member.id}>
                   <div className="item item-1">
                     <div className="item-inn">

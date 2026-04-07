@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import blogArray from "../../blog.js";
+import blogArray from "../../DataJs/blog.js";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);

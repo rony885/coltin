@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import bannerDescrpAboutArray from "../../DataJs/bannerDescrpAbout.js";
+import countAboutArray from "../../DataJs/countAbout.js";
+import videoAboutArray from "../../DataJs/videoAbout.js";
+
 const AboutInfo = () => {
+  const [abouts, setAbouts] = useState([]);
+  const [counts, setCounts] = useState([]);
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    setAbouts(bannerDescrpAboutArray);
+    setCounts(countAboutArray);
+    setVideos(videoAboutArray);
+  }, []);
+
   return (
     <>
-      <div className="breadcrumb">
+      {/* <div className="breadcrumb">
         <div className="container">
           <div className="breadcrumbtitle">
             <h2>About Us</h2>
@@ -21,22 +35,23 @@ const AboutInfo = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="about-us">
+      <div className="about-us mt-4">
         <div className="container">
           <div className="banner">
             <Link href="#">
               <img
                 className="img-product lazyloaded"
                 data-src="images/about-us/about_us.jpg"
-                src="images/about-us/about_us.jpg"
-                alt=""
+                // src="images/about-us/about_us.jpg"
+                src={abouts.bannerImage}
+                alt="Imagee"
               />
             </Link>
           </div>
           <div className="flat-spacing-17 item-text text-center">
-            <p>
+            {/* <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud
@@ -47,45 +62,30 @@ const AboutInfo = () => {
               <br />
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
               officia deserunt mollit anim id est laborum.
-            </p>
+            </p> */}
+            <p>{abouts.description}</p>
           </div>
         </div>
       </div>
+
       <div className="widget-statistics mb_90">
         <div className="container">
           <div className="wrap">
             <div className="block-statistic row">
-              <div className="item item-1 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div className="item-inn">
-                  <span className="js-counter">800</span>
-                  <span className="suffix">+</span>
-                  <p>Product Types</p>
-                </div>
-              </div>
-
-              <div className="item item-2 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div className="item-inn">
-                  <span className="js-counter">12</span>
-                  <span className="suffix">+</span>
-                  <p>Years of Experience</p>
-                </div>
-              </div>
-
-              <div className="item item-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div className="item-inn">
-                  <span className="js-counter">2500</span>
-                  <span className="suffix">+</span>
-                  <p>Trust Customers</p>
-                </div>
-              </div>
-
-              <div className="item item-4 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div className="item-inn">
-                  <span className="js-counter">15</span>
-                  <span className="suffix">+</span>
-                  <p>Stores Nationwide</p>
-                </div>
-              </div>
+              {counts.map((item) => {
+                return (
+                  <div
+                    key={item.id}
+                    className="item item-1 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-12"
+                  >
+                    <div className="item-inn">
+                      <span className="js-counter">{item.count}</span>
+                      <span className="suffix">{item.suffix}</span>
+                      <p>{item.label}</p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -95,14 +95,14 @@ const AboutInfo = () => {
         <div className="box_video">
           <a
             className="link_video btn_videos"
-            href="https://youtu.be/1ap0baidLVo"
+            href={videos.videoUrl}
             title="video"
             target="_blank"
             rel="noopener noreferrer"
           >
             <img
               className="img-product lazyloaded"
-              src="images/about-us/about_us1.jpg"
+              src={videos.thumbnail}
               alt="Video Thumbnail"
             />
             <span>

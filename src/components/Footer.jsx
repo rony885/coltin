@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import generalArray from "../DataJs/general.js";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [generals, setGenerals] = useState([]);
+
+  useEffect(() => {
+    setGenerals(generalArray);
+  }, []);
 
   return (
     <footer id="footer" className="footer md-pb-70">
@@ -15,22 +21,23 @@ const Footer = () => {
                 <div className="footer-infor">
                   <div className="footer-logo">
                     <Link to="/">
-                      <img src="/images/logo/logo.png" alt="Logo" />
+                      {/* <img src="/images/logo/logo.png" alt="Logo" /> */}
+                      <img src={generals.logo} alt="Logo" />
                     </Link>
                   </div>
                   <ul>
                     <li>
-                      <p>5611 Wellington Road, Suite 115, Gainesville</p>
+                      <p>{generals.address}</p>
                     </li>
                     <li className="phone">
                       <p>
-                        <Link to="#">(84) 943 446 000</Link>
+                        <Link to="#">{generals.phone}</Link>
                       </p>
                     </li>
                     <li>
                       <p>
                         <Link to="mailto:entry@support.com">
-                          entry@support.com
+                          {generals.phone}
                         </Link>
                       </p>
                     </li>

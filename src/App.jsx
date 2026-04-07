@@ -1,38 +1,3 @@
-// import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import "./App.css";
-// import Loader from "./components/Loader/Loader";
-// import TopBar from "./components/TopBar";
-// import Header from "./components/Header/Header";
-// import Footer from "./components/Footer";
-// import Home from "./pages/Home/Home";
-// import Contact from "./pages/Contact/Contact";
-// import GoTop from "./components/GoTop";
-
-// function App() {
-//   return (
-//     <div className="">
-//       <BrowserRouter>
-//         <body className="preload-wrapper popup-loader template-index">
-//           <Loader />
-//           <div id="wrapper">
-//             <TopBar />
-//             <Header />
-//             <Routes>
-//               <Route path="/" element={<Home />} />
-//               <Route path="/contact" element={<Contact />} />
-//             </Routes>
-//             <Footer />
-//           </div>
-
-//           <GoTop />
-//         </body>
-//       </BrowserRouter>
-//     </div>
-//   );
-// }
-
-// export default App;
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 // import Loader from "./components/Loader/Loader";

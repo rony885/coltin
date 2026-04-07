@@ -47,7 +47,7 @@ const Header = ({ toggleCart }) => {
                 <img src="/images/logo/logo.png" alt="logo" className="logo" />
               </Link>
             </div>
-            <div className="header__search">
+            <div className="header__search d-none">
               <form className="mini-search-from">
                 <fieldset className="text">
                   <input

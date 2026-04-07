@@ -1,123 +1,16 @@
-// import React from "react";
-// import styled from "styled-components";
-// import { Link } from "react-router-dom";
-
-// const galleryImages = [
-//   { id: 1, image: "images/gallery/1.jpg" },
-//   { id: 2, image: "images/gallery/2.jpg" },
-//   { id: 3, image: "images/gallery/3.jpg" },
-//   { id: 4, image: "images/gallery/4.jpg" },
-//   { id: 5, image: "images/gallery/5.jpg" },
-//   { id: 6, image: "images/gallery/6.jpg" },
-//   { id: 7, image: "images/gallery/7.jpg" },
-//   { id: 8, image: "images/gallery/8.jpg" },
-//   { id: 9, image: "images/gallery/9.jpg" },
-//   { id: 10, image: "images/gallery/10.jpg" },
-//   { id: 11, image: "images/gallery/11.jpg" },
-//   { id: 12, image: "images/gallery/12.jpg" },
-// ];
-
-// const Gallery = () => {
-//   return (
-//     <Wrapper>
-//       <div className="breadcrumb">
-//         <div className="container">
-//           <div className="breadcrumbtitle">
-//             <h2>Photo gallery</h2>
-//           </div>
-//           <div className="breadcrumb-wrap d-flex justify-content-center flex-wrap align-items-center">
-//             <div className="breadcrumb-list">
-//               <Link to="/" className="text">
-//                 Home
-//               </Link>
-//               <i className="icon icon-arrow-right"></i>
-//               <span className="text">Photo gallery</span>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-
-//       <div className="page--information container">
-//         <div className="content--gallery">
-//           <div className="row">
-//             {galleryImages.map((item) => (
-//               <div
-//                 key={item}
-//                 className="portfolio-item col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12"
-//               >
-//                 <div className="portfolio-inner">
-//                   <div className="portfolio-image">
-//                     <a href={item.image} className="popup-gallery">
-//                       <img
-//                         className="lazyload img-product"
-//                         data-src={item.image}
-//                         src="images/portfolio/Port_1.jpg"
-//                         alt="image-product"
-//                       />
-//                     </a>
-//                   </div>
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-
-//           <ul className="pagination-wrap pagination-list pagination-btn">
-//             <li className="active">
-//               <Link to="#" className="pagination-link">
-//                 1
-//               </Link>
-//             </li>
-//             <li>
-//               <Link to="#" className="pagination-link">
-//                 2
-//               </Link>
-//             </li>
-//             <li>
-//               <Link to="#" className="pagination-link">
-//                 3
-//               </Link>
-//             </li>
-//             <li>
-//               <Link to="#" className="pagination-link">
-//                 4
-//               </Link>
-//             </li>
-//             <li>
-//               <Link to="#" className="pagination-link">
-//                 <span className="icon icon-arrow-right"></span>
-//               </Link>
-//             </li>
-//           </ul>
-//         </div>
-//       </div>
-//     </Wrapper>
-//   );
-// };
-
-// const Wrapper = styled.section``;
-
-// export default Gallery;
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const galleryImages = [
-  { id: 1, image: "images/gallery/1.jpg" },
-  { id: 2, image: "images/gallery/2.jpg" },
-  { id: 3, image: "images/gallery/3.jpg" },
-  { id: 4, image: "images/gallery/4.jpg" },
-  { id: 5, image: "images/gallery/5.jpg" },
-  { id: 6, image: "images/gallery/6.jpg" },
-  { id: 7, image: "images/gallery/7.jpg" },
-  { id: 8, image: "images/gallery/8.jpg" },
-  { id: 9, image: "images/gallery/9.jpg" },
-  { id: 10, image: "images/gallery/10.jpg" },
-  { id: 11, image: "images/gallery/11.jpg" },
-  { id: 12, image: "images/gallery/12.jpg" },
-];
+import galleryArray from "../../DataJs/gallery.js";
 
 const Gallery = () => {
+  const [galleries, setGalleries] = useState([]);
+
+  useEffect(() => {
+    setGalleries(galleryArray);
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -131,19 +24,17 @@ const Gallery = () => {
   };
 
   const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % galleryImages.length);
+    setCurrentIndex((prev) => (prev + 1) % galleries.length);
   };
 
   const prevImage = () => {
-    setCurrentIndex(
-      (prev) => (prev - 1 + galleryImages.length) % galleryImages.length,
-    );
+    setCurrentIndex((prev) => (prev - 1 + galleries.length) % galleries.length);
   };
 
   return (
     <Wrapper>
       {/* Breadcrumb */}
-      <div className="breadcrumb">
+      {/* <div className="breadcrumb">
         <div className="container">
           <div className="breadcrumbtitle">
             <h2>Photo gallery</h2>
@@ -158,13 +49,13 @@ const Gallery = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Gallery */}
-      <div className="page--information container">
+      <div className="page--information container mt-4">
         <div className="content--gallery">
           <div className="row">
-            {galleryImages.map((item, index) => (
+            {galleries.map((item, index) => (
               <div
                 key={item.id}
                 className="portfolio-item col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12"
@@ -230,7 +121,7 @@ const Gallery = () => {
             <button className="popup-prev" onClick={prevImage}>
               ‹
             </button>
-            <img src={galleryImages[currentIndex].image} alt="popup" />
+            <img src={galleries[currentIndex].image} alt="popup" />
             <button className="popup-next" onClick={nextImage}>
               ›
             </button>

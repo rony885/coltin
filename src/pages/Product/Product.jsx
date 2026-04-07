@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { AiOutlineEye, AiOutlineHeart } from "react-icons/ai";
 import { BsCart, BsTruck } from "react-icons/bs";
 import { FiClock, FiFilter, FiPhone, FiRepeat } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import products from "../../product.js";
+import products from "../../DataJs/product?.js";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { PiCaretLineLeftBold, PiCaretLineRightBold } from "react-icons/pi";
+import axios from "axios";
+import Loader from "../../components/Loader/Loader.jsx";
 
 const Product = ({ toggleFilterSidebar, openQuickView }) => {
   const [productsData, setProductsData] = useState(products);
-  const [grid, setGrid] = useState(4); // default grid-4
-  const [open, setOpen] = useState(false);
-  const [openWidget, setOpenWidget] = useState({
-    categories: true,
-    sale: true,
-    shipping: true,
-    follow: true,
-    banner: true, // optional if you want toggle
-  });
 
   useEffect(() => {
     setProductsData(products);
   }, []);
+
+  const [grid, setGrid] = useState(4); // default grid-4
+  const [open, setOpen] = useState(false);
+  const [openWidget, setOpenWidget] = useState({
+    categories: true,
+    subCategories: true,
+    brand: true,
+  });
 
   const toggleDropdown = () => setOpen(!open);
 
@@ -27,9 +31,69 @@ const Product = ({ toggleFilterSidebar, openQuickView }) => {
     setOpenWidget((prev) => ({ ...prev, [name]: !prev[name] }));
   };
 
+  const [data, setData] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [itemsPerPage, setItemsPerPage] = useState(12);
+  const [loading, setLoading] = useState(false);
+
+  const BASE_URL = `https://apps.fusiontradebd.com/server/product_api/product/`; // :white_check_mark: your DRF API endpoint
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        // Construct the params dynamically by adding only the fields that have values
+        const params = {
+          p: currentPage,
+          items_per_page: itemsPerPage,
+          search: searchTerm.trim() || null,
+        };
+
+        // Make the API call with the dynamically constructed params
+        const response = await axios.get(BASE_URL, { params });
+
+        // Handle the response data
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching expense categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [BASE_URL, currentPage, itemsPerPage, searchTerm]);
+
+  // destructuring backend data safely
+  const { results: arr = [], total_pages: totalPages = 1, count = 0 } = data;
+
+  // Pagination Handlers
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setCurrentPage(newPage);
+  };
+
+  const handleItemsPerPageChange = (e) => {
+    const newItemsPerPage = Number(e.target.value);
+    setItemsPerPage(newItemsPerPage);
+    setCurrentPage(1);
+  };
+
+  // Search Handler
+  const handleSearchChange = (e) => {
+    const newSearch = e.target.value;
+    setSearchTerm(newSearch);
+    setCurrentPage(1);
+  };
+
+  // Index for numbering
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
   return (
-    <>
-      <div className="breadcrumb">
+    <Wrapper>
+      {/* <div className="breadcrumb">
         <div className="container">
           <div className="breadcrumbtitle">
             <h2>Top</h2>
@@ -46,24 +110,12 @@ const Product = ({ toggleFilterSidebar, openQuickView }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <section className="flat-spacing-0">
+      <section className="flat-spacing-0 mt-4">
         <div className="container">
           <div className="ss-shop-control grid-3 align-items-center">
-            <div className="ss-control-filter">
-              <Link
-                // to="#filterShop"
-                // data-bs-toggle="offcanvas"
-                className="btn-filter"
-                onClick={toggleFilterSidebar}
-              >
-                <FiFilter size={20} />
-                <span className="text">Filter by</span>
-              </Link>
-            </div>
-
-            <ul className="ss-control-layout d-flex justify-content-center">
+            <ul className="ss-control-layout d-flex justify-content-start align-items-center">
               {[2, 3, 4].map((num) => (
                 <li
                   key={num}
@@ -78,6 +130,26 @@ const Product = ({ toggleFilterSidebar, openQuickView }) => {
                 </li>
               ))}
             </ul>
+
+            <div className="header__search">
+              <form className="mini-search-from">
+                <fieldset className="text">
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className=""
+                    name="text"
+                    aria-required="true"
+                    required=""
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                  />
+                </fieldset>
+                <button className="" type="submit">
+                  <i className="icon-search"></i>
+                </button>
+              </form>
+            </div>
 
             <div className="control-sorting d-flex justify-content-end">
               <div className="dropdown-sort" style={{ position: "relative" }}>
@@ -113,12 +185,6 @@ const Product = ({ toggleFilterSidebar, openQuickView }) => {
                     }}
                   >
                     <div className="select-item active">
-                      <span className="text-value-item">Featured</span>
-                    </div>
-                    <div className="select-item">
-                      <span className="text-value-item">Best selling</span>
-                    </div>
-                    <div className="select-item">
                       <span className="text-value-item">
                         Alphabetically, A-Z
                       </span>
@@ -138,19 +204,37 @@ const Product = ({ toggleFilterSidebar, openQuickView }) => {
                         Price, high to low
                       </span>
                     </div>
-                    <div className="select-item">
-                      <span className="text-value-item">Date, old to new</span>
-                    </div>
-                    <div className="select-item">
-                      <span className="text-value-item">Date, new to old</span>
-                    </div>
                   </div>
                 )}
               </div>
             </div>
           </div>
+
           <div className="ss-row-flex">
             <aside className="ss-shop-sidebar wrap-sidebar-mobile">
+              <div className="ss-control-filter mb-4">
+                <Link
+                  // to="#filterShop"
+                  // data-bs-toggle="offcanvas"
+                  className="btn-filter"
+                  onClick={toggleFilterSidebar}
+                >
+                  <FiFilter size={20} />
+                  <span className="text">Filter by</span>
+                </Link>
+              </div>
+
+              <div className="ss-control-filter">
+                <Link
+                  // to="#filterShop"
+                  className="btn-filter"
+                  // onClick={toggleFilterSidebar}
+                >
+                  <FiFilter size={20} />
+                  <span className="text">Clear Filter</span>
+                </Link>
+              </div>
+
               {/* Categories */}
               <div className="widget-facet wd-categories">
                 <div
@@ -158,7 +242,7 @@ const Product = ({ toggleFilterSidebar, openQuickView }) => {
                   onClick={() => toggleWidget("categories")}
                   role="button"
                 >
-                  <span>Product categories</span>
+                  <span> Categories</span>
                   <span
                     className={`icon ${
                       openWidget.categories
@@ -194,337 +278,485 @@ const Product = ({ toggleFilterSidebar, openQuickView }) => {
                         <span>Dress</span>&nbsp;<span>(23)</span>
                       </Link>
                     </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Men</span>&nbsp;<span>(9)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Women</span>&nbsp;<span>(23)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Denim</span>&nbsp;<span>(20)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Dress</span>&nbsp;<span>(23)</span>
+                      </Link>
+                    </li>
                   </ul>
                 )}
               </div>
 
-              {/* Sale Products */}
-              <div className="widget-facet">
+              {/* Sub Categories */}
+              <div className="widget-facet wd-categories">
                 <div
                   className="facet-title"
-                  onClick={() => toggleWidget("sale")}
+                  onClick={() => toggleWidget("subCategories")}
                   role="button"
                 >
-                  <span>Sale products</span>
+                  <span>Sub Categories</span>
                   <span
                     className={`icon ${
-                      openWidget.sale ? "icon-arrow-up" : "icon-arrow-down"
+                      openWidget.subCategories
+                        ? "icon-arrow-up"
+                        : "icon-arrow-down"
                     }`}
                   ></span>
                 </div>
-                {openWidget.sale && (
-                  <div className="widget-featured-products mb_36">
-                    <div className="featured-product-item">
-                      <Link
-                        to="/product-details"
-                        className="card-product-wrapper"
-                      >
-                        <img
-                          className="lazyload img-product"
-                          src="images/products/img-feature-1.png"
-                          alt="image-feature"
-                        />
+                {openWidget.subCategories && (
+                  <ul className="list-categoris current-scrollbar mb_36">
+                    <li className="cate-item current">
+                      <Link to="#">
+                        <span>Fashion</span>&nbsp;<span>(31)</span>
                       </Link>
-                      <div className="card-product-info">
-                        <Link to="#" className="title link">
-                          Jersey thong body
-                        </Link>
-                        <span className="price">$105.95</span>
-                      </div>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Men</span>&nbsp;<span>(9)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Women</span>&nbsp;<span>(23)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Denim</span>&nbsp;<span>(20)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Dress</span>&nbsp;<span>(23)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Men</span>&nbsp;<span>(9)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Women</span>&nbsp;<span>(23)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Denim</span>&nbsp;<span>(20)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Dress</span>&nbsp;<span>(23)</span>
+                      </Link>
+                    </li>
+                  </ul>
+                )}
+              </div>
+
+              {/* Brand */}
+              <div className="widget-facet wd-categories">
+                <div
+                  className="facet-title"
+                  onClick={() => toggleWidget("brand")}
+                  role="button"
+                >
+                  <span>Brand</span>
+                  <span
+                    className={`icon ${
+                      openWidget.brand ? "icon-arrow-up" : "icon-arrow-down"
+                    }`}
+                  ></span>
+                </div>
+                {openWidget.brand && (
+                  <ul className="list-categoris current-scrollbar mb_36">
+                    <li className="cate-item current">
+                      <Link to="#">
+                        <span>Fashion</span>&nbsp;<span>(31)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Men</span>&nbsp;<span>(9)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Women</span>&nbsp;<span>(23)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Denim</span>&nbsp;<span>(20)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Dress</span>&nbsp;<span>(23)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Men</span>&nbsp;<span>(9)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Women</span>&nbsp;<span>(23)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Denim</span>&nbsp;<span>(20)</span>
+                      </Link>
+                    </li>
+                    <li className="cate-item">
+                      <Link to="#">
+                        <span>Dress</span>&nbsp;<span>(23)</span>
+                      </Link>
+                    </li>
+                  </ul>
+                )}
+              </div>
+
+              <div className="widget-facet">
+                <div
+                  className="facet-title"
+                  // data-bs-target="#price"
+                  // data-bs-toggle="collapse"
+                  aria-expanded="true"
+                  aria-controls="price"
+                  role="button"
+                >
+                  <span>Price</span>
+                  {/* <span className="icon icon-arrow-up"></span> */}
+                </div>
+                <div id="price" className="collapse show">
+                  <div className="widget-price filter-price">
+                    <div className="tow-bar-block">
+                      <div className="progress-price"></div>
                     </div>
-                    <div className="featured-product-item">
-                      <Link
-                        to="/product-details"
-                        className="card-product-wrapper"
-                      >
-                        <img
-                          className="lazyload img-product"
-                          src="images/products/img-feature-2.png"
-                          alt="image-feature"
-                        />
-                      </Link>
-                      <div className="card-product-info">
-                        <Link to="#" className="title link">
-                          Lace-trimmed Satin Camisole Top
-                        </Link>
-                        <span className="price">€24,95</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Shipping */}
-              <div className="widget-facet">
-                <div
-                  className="facet-title"
-                  onClick={() => toggleWidget("shipping")}
-                  role="button"
-                >
-                  <span>Shipping & Delivery</span>
-                  <span
-                    className={`icon ${
-                      openWidget.shipping ? "icon-arrow-up" : "icon-arrow-down"
-                    }`}
-                  ></span>
-                </div>
-                {openWidget.shipping && (
-                  <ul className="widget-iconbox-list mb_36">
-                    <li className="iconbox-item">
-                      <div className="box-icon w_50 round">
-                        <BsTruck size={22} color="black" />
-                      </div>
-                      <div className="iconbox-content">
-                        <h4 className="iconbox-title">Free shipping</h4>
-                        <p className="iconbox-desc">
-                          Free iconbox for all US order
-                        </p>
-                      </div>
-                    </li>
-                    <li className="iconbox-item">
-                      <div className="box-icon w_50 round">
-                        <FiPhone size={22} color="black" />
-                      </div>
-                      <div className="iconbox-content">
-                        <h4 className="iconbox-title">Premium Support</h4>
-                        <p className="iconbox-desc">
-                          Support 24 hours Link day
-                        </p>
-                      </div>
-                    </li>
-                    <li className="iconbox-item">
-                      <div className="box-icon w_50 round">
-                        <FiClock size={22} color="black" />
-                      </div>
-                      <div className="iconbox-content">
-                        <h4 className="iconbox-title">30 Days Return</h4>
-                        <p className="iconbox-desc">
-                          You have 30 days to return
-                        </p>
-                      </div>
-                    </li>
-                  </ul>
-                )}
-              </div>
-
-              {/* Follow Us */}
-              <div className="widget-facet">
-                <div
-                  className="facet-title"
-                  onClick={() => toggleWidget("follow")}
-                  role="button"
-                >
-                  <span>Follow us</span>
-                  <span
-                    className={`icon ${
-                      openWidget.follow ? "icon-arrow-up" : "icon-arrow-down"
-                    }`}
-                  ></span>
-                </div>
-                {openWidget.follow && (
-                  <ul className="tf-social-icon d-flex gap-10 mb_30">
-                    <li>
-                      <Link
-                        to="#"
-                        className="box-icon w_34 round bg_line social-facebook"
-                      >
-                        <i className="icon fs-14 icon-fb"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="#"
-                        className="box-icon w_34 round bg_line social-twiter"
-                      >
-                        <i className="icon fs-12 icon-Icon-x"></i>
-                      </Link>
-                    </li>
-                  </ul>
-                )}
-              </div>
-
-              {/* Banner */}
-              <div className="widget-facet effect_4">
-                <div
-                  className="facet-title"
-                  onClick={() => toggleWidget("banner")}
-                  role="button"
-                >
-                  <span>Banner</span>
-                  <span
-                    className={`icon ${
-                      openWidget.banner ? "icon-arrow-up" : "icon-arrow-down"
-                    }`}
-                  ></span>
-                </div>
-                {openWidget.banner && (
-                  <div className="banners">
-                    <Link to="#">
-                      <img
-                        className="lazyload img-product"
-                        src="images/products/image-sidebar.png"
-                        alt="image-product"
+                    <div className="range-input">
+                      <input
+                        className="range-min"
+                        type="range"
+                        min="0"
+                        max="300"
+                        value="0"
                       />
-                    </Link>
+                      <input
+                        className="range-max"
+                        type="range"
+                        min="0"
+                        max="300"
+                        value="300"
+                      />
+                    </div>
+                    <div className="box-title-price">
+                      <span className="title-price">Price :</span>
+                      <div className="caption-price">
+                        <div>
+                          <span>$</span>
+                          <span className="min-price">0</span>
+                        </div>
+                        <span>-</span>
+                        <div>
+                          <span>$</span>
+                          <span className="max-price">300</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                )}
+                </div>
+              </div>
+
+              <div className="ss-control-filter">
+                <Link
+                  // to="#filterShop"
+                  className="btn-filter"
+                  // onClick={toggleFilterSidebar}
+                >
+                  <FiFilter size={20} />
+                  <span className="text">Clear Filter</span>
+                </Link>
               </div>
             </aside>
 
             <div className="products-listing wrapper-control-shop ss-shop-content">
-              <div
-                className={`product-layout grid__item grid-layout wrapper-shop grid-${grid}`}
-                data-grid={`grid-${grid}`}
-              >
-                {productsData.map((product) => {
-                  return (
-                    <div key={product.id} className="item">
-                      <div className="product-item card-product">
-                        <div className="product-item-container">
-                          <div className="left-block">
-                            <Link to="/product-details" className="product-img">
-                              <span
-                                className="media media--transparent media-- media--hover-effect"
-                                style={{ paddingBottom: "100%" }}
-                              >
-                                <img
-                                  className="lazyload img-product"
-                                  src={product.images.main}
-                                  alt="image-product"
-                                />
-                                <img
-                                  className="lazyload img-hover"
-                                  src={product.images.hover}
-                                  alt="image-product"
-                                />
-                              </span>
-                            </Link>
-                            <div className="list-product-btn column-right">
+              {loading ? (
+                <div
+                  style={{ height: "500px" }}
+                  className="d-flex justify-content-center align-items-center"
+                >
+                  <span>Loading</span>
+                </div>
+              ) : (
+                <div
+                  className={`product-layout grid__item grid-layout wrapper-shop grid-${grid}`}
+                  data-grid={`grid-${grid}`}
+                >
+                  {arr.map((product) => {
+                    return (
+                      <div key={product?.id} className="item mb-4">
+                        <div className="product-item card-product">
+                          <div className="product-item-container">
+                            <div className="left-block">
                               <Link
-                                to="#"
-                                className="box-icon bg_white wishlist btn-icon-action"
+                                to="/product-details"
+                                className="product-img"
                               >
-                                <AiOutlineHeart size={16} />
-                                <span className="tooltip">Add to Wishlist</span>
-                                <span className="icon icon-delete"></span>
+                                <span
+                                  className="media media--transparent media-- media--hover-effect"
+                                  style={{ paddingBottom: "100%" }}
+                                >
+                                  <img
+                                    className="lazyload img-product"
+                                    src={
+                                      product?.p_image ||
+                                      "/default-produt-image.jpg"
+                                    }
+                                    style={{
+                                      height:
+                                        grid === 2
+                                          ? "441px"
+                                          : grid === 3
+                                            ? "278px"
+                                            : "196px",
+                                      width:
+                                        grid === 2
+                                          ? "441px"
+                                          : grid === 3
+                                            ? "278px"
+                                            : "196px",
+                                    }}
+                                    alt="image-product"
+                                  />
+
+                                  <img
+                                    className="lazyload img-hover"
+                                    src={"/user image-png.png"}
+                                    style={{
+                                      height:
+                                        grid === 2
+                                          ? "441px"
+                                          : grid === 3
+                                            ? "278px"
+                                            : "196px",
+                                      width:
+                                        grid === 2
+                                          ? "441px"
+                                          : grid === 3
+                                            ? "278px"
+                                            : "196px",
+                                    }}
+                                    alt="image-product"
+                                  />
+                                </span>
                               </Link>
-                              <Link
-                                to="#compare"
-                                data-bs-toggle="offcanvas"
-                                className="box-icon bg_white compare btn-icon-action"
-                              >
-                                <FiRepeat size={16} />
-                                <span className="tooltip">Add to Compare</span>
-                                <span className="icon icon-check"></span>
-                              </Link>
-                              <Link
-                                // to="#quick_view"
-                                // data-bs-toggle="modal"
-                                className="box-icon bg_white quickview ss-btn-loading"
-                                onClick={openQuickView}
-                              >
-                                <AiOutlineEye size={16} />
-                                <span className="tooltip">Quick View</span>
-                              </Link>
-                            </div>
-                          </div>
-                          <div className="right-block">
-                            <div className="caption">
-                              <div className="title-vendor">
-                                <Link to="/product" title="Entry">
-                                  {product.vendor}
+                              <div className="list-product-btn column-right">
+                                <Link
+                                  to="#"
+                                  className="box-icon bg_white wishlist btn-icon-action"
+                                >
+                                  <AiOutlineHeart size={16} />
+                                  <span className="tooltip">
+                                    Add to Wishlist
+                                  </span>
+                                  <span className="icon icon-delete"></span>
+                                </Link>
+                                <Link
+                                  to="#compare"
+                                  data-bs-toggle="offcanvas"
+                                  className="box-icon bg_white compare btn-icon-action"
+                                >
+                                  <FiRepeat size={16} />
+                                  <span className="tooltip">
+                                    Add to Compare
+                                  </span>
+                                  <span className="icon icon-check"></span>
+                                </Link>
+                                <Link
+                                  // to="#quick_view"
+                                  // data-bs-toggle="modal"
+                                  className="box-icon bg_white quickview ss-btn-loading"
+                                  onClick={openQuickView}
+                                >
+                                  <AiOutlineEye size={16} />
+                                  <span className="tooltip">Quick View</span>
                                 </Link>
                               </div>
-                              <h4 className="title-product">
-                                <Link
-                                  to="/product-details"
-                                  className="title link"
-                                >
-                                  {product.title}
-                                </Link>
-                              </h4>
+                            </div>
+                            <div className="right-block">
+                              <div className="caption">
+                                <div className="title-vendor">
+                                  <Link to="/product" title="Entry">
+                                    {product?.vendor}
+                                  </Link>
+                                </div>
 
-                              <div className="price">
-                                {product.price.sale ? (
-                                  <>
-                                    <div className="product-price--regular">
-                                      ${product.price.regular}
-                                    </div>
-                                    <div className="price-item--sale">
-                                      ${product.price.sale}
-                                    </div>
-                                  </>
+                                {/* ===== Stock Status ===== */}
+                                {product?.p_purchase_stock > 0 ? (
+                                  <div
+                                    className="stock-status text-success"
+                                    style={{
+                                      fontSize: "13px",
+                                      marginTop: "4px",
+                                    }}
+                                  >
+                                    {/* In Stock ({product?.p_purchase_stock}) */}
+                                    In Stock
+                                  </div>
                                 ) : (
-                                  <div className="product-price">
-                                    ${product.price.regular}
+                                  <div
+                                    className="stock-status text-danger"
+                                    style={{
+                                      fontSize: "13px",
+                                      marginTop: "4px",
+                                    }}
+                                  >
+                                    Out of Stock
                                   </div>
                                 )}
-                              </div>
-
-                              <ul className="list-color-product">
-                                {product.colors.map((color, index) => (
-                                  <li
-                                    key={index}
-                                    className={`list-color-item color-swatch ${
-                                      color.active ? "active" : ""
-                                    }`}
+                                <h4 className="title-product">
+                                  <Link
+                                    to="/product-details"
+                                    className="title link"
+                                    style={{
+                                      fontSize: "12px",
+                                      fontWeight: "700",
+                                    }}
                                   >
-                                    <span className="tooltip">
-                                      {color.name}
-                                    </span>
-                                    <span
-                                      className={`swatch-value ${color.class}`}
-                                    ></span>
-                                    <img src={color.img} alt={color.name} />
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                            <div className="button-link">
-                              <Link
-                                to="#quick_add"
-                                data-bs-toggle="modal"
-                                className="btn-addToCart grl btn_df"
-                              >
-                                <BsCart size={20} />
-                                <span>Add to cart</span>
-                              </Link>
+                                    {product?.p_name} ({product?.p_brand?.name})
+                                  </Link>
+                                </h4>
+
+                                <div className="price">
+                                  {product?.p_payable_price !==
+                                  product?.p_price ? (
+                                    <>
+                                      <div className="product-price--regular">
+                                        ${product?.p_payable_price}
+                                      </div>
+                                      <div className="price-item--sale">
+                                        ${product?.p_price}
+                                      </div>
+                                    </>
+                                  ) : (
+                                    <div className="product-price">
+                                      ${product?.p_price}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              {product?.p_purchase_stock > 0 && (
+                                <div className="button-link">
+                                  <Link
+                                    to="#quick_add"
+                                    data-bs-toggle="modal"
+                                    className="btn-addToCart grl btn_df"
+                                  >
+                                    <BsCart size={20} />
+                                    <span>Add to cart</span>
+                                  </Link>
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+              )}
+
+              <div className="pagination d-flex justify-content-between align-items-center mt-4 mb-2">
+                <div className="d-flex align-items-center">
+                  <span className="pagination_text">Rows per page :</span>
+
+                  <div className="ms-2">
+                    <select
+                      aria-label="Rows per page :"
+                      className="form-select fs-6"
+                      style={{ width: "80px" }}
+                      value={itemsPerPage}
+                      onChange={handleItemsPerPageChange}
+                    >
+                      <option value="12">12</option>
+                      <option value="16">16</option>
+                      <option value="20">20</option>
+                    </select>
+                  </div>
+                </div>
+                <span className="pagination-info">
+                  {!isNaN(indexOfFirstItem) &&
+                  !isNaN(indexOfLastItem) &&
+                  !isNaN(count)
+                    ? `${indexOfFirstItem + 1}-${Math.min(
+                        indexOfLastItem,
+                        count,
+                      )} of ${count}`
+                    : ""}
+                  &nbsp;
+                  {!isNaN(totalPages) &&
+                    ` (Total Page${totalPages > 1 ? "s" : ""} : ${totalPages})`}
+                </span>
+                <div className="pagination-buttons d-flex">
+                  <button
+                    type="button"
+                    aria-label="First Page"
+                    className="btn btn-link"
+                    onClick={() => handlePageChange(1)}
+                    disabled={currentPage === 1}
+                  >
+                    <PiCaretLineLeftBold />
+                  </button>
+
+                  <button
+                    type="button"
+                    aria-label="Previous Page"
+                    className="btn btn-link"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    <FaChevronLeft />
+                  </button>
+
+                  <button
+                    type="button"
+                    aria-label="Next Page"
+                    className="btn btn-link"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    <FaChevronRight />
+                  </button>
+
+                  <button
+                    type="button"
+                    aria-label="Last Page"
+                    className="btn btn-link"
+                    onClick={() => handlePageChange(totalPages)}
+                    disabled={currentPage === totalPages}
+                  >
+                    <PiCaretLineRightBold />
+                  </button>
+                </div>
               </div>
-              {/* <!-- pagination --> */}
-              <ul className="pagination-wrap pagination-list pagination-btn">
-                <li className="active">
-                  <Link to="#" className="pagination-link">
-                    1
-                  </Link>
-                </li>
-                <li>
-                  <Link to="#" className="pagination-link">
-                    2
-                  </Link>
-                </li>
-                <li>
-                  <Link to="#" className="pagination-link">
-                    3
-                  </Link>
-                </li>
-                <li>
-                  <Link to="#" className="pagination-link">
-                    4
-                  </Link>
-                </li>
-                <li>
-                  <Link to="#" className="pagination-link">
-                    <span className="icon icon-arrow-right"></span>
-                  </Link>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
@@ -534,8 +766,10 @@ const Product = ({ toggleFilterSidebar, openQuickView }) => {
           <i className="icon icon-sidebar-2"></i>
         </button>
       </div>
-    </>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.section``;
 
 export default Product;
