@@ -6,11 +6,11 @@ import ServiceBox from "./ServiceBox";
 import Product from "./Product";
 import ProductRecomended from "./ProductRecomended";
 
-const Home = ({ openQuickView }) => {
+const Home = ({ openQuickView, categories }) => {
   return (
     <div>
       <HeroSlider />
-      <Categories />
+      <Categories categories={categories} />
       <ProductDeal openQuickView={openQuickView} />
       <Product openQuickView={openQuickView} />
       <ProductRecomended openQuickView={openQuickView} />

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import bannerDescrpAboutArray from "../../DataJs/bannerDescrpAbout.js";
-import countAboutArray from "../../DataJs/countAbout.js";
-import videoAboutArray from "../../DataJs/videoAbout.js";
+import about from "../../DataJs/about.js";
+// import countAboutArray from "../../DataJs/countAbout.js";
+// import videoAboutArray from "../../DataJs/videoAbout.js";
 
 const AboutInfo = () => {
   const [abouts, setAbouts] = useState([]);
@@ -11,39 +11,20 @@ const AboutInfo = () => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    setAbouts(bannerDescrpAboutArray);
-    setCounts(countAboutArray);
-    setVideos(videoAboutArray);
+    setAbouts(about?.bannerDescrpAbout);
+    setCounts(about?.countAbout);
+    setVideos(about?.videoAbout);
   }, []);
 
   return (
     <>
-      {/* <div className="breadcrumb">
-        <div className="container">
-          <div className="breadcrumbtitle">
-            <h2>About Us</h2>
-          </div>
-          <div className="breadcrumb-wrap d-flex justify-content-center flex-wrap align-items-center">
-            <div className="breadcrumb-list">
-              <Link to="/" className="text">
-                Home
-              </Link>
-              <i className="icon icon-arrow-right"></i>
-              <Link href="#" className="text">
-                About Us
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
-      <div className="about-us mt-4">
+      <div className="about-us my-4">
         <div className="container">
           <div className="banner">
             <Link href="#">
               <img
                 className="img-product lazyloaded"
-                data-src="images/about-us/about_us.jpg"
+                // data-src="images/about-us/about_us.jpg"
                 // src="images/about-us/about_us.jpg"
                 src={abouts.bannerImage}
                 alt="Imagee"

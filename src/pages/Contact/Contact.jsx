@@ -4,39 +4,21 @@ import { SiX } from "react-icons/si";
 import { Link } from "react-router-dom";
 
 import contactInfoArray from "../../DataJs/contactInfo.js";
-import socialLinksArray from "../../DataJs/socialLinks.js";
+import general from "../../DataJs/general.js";
 
 const Contact = () => {
-    const [contactInfo, setContactInfo] = useState([]);
-    const [socialLinks, setSocialLinks] = useState([]);
-  
-    useEffect(() => {
-      setContactInfo(contactInfoArray);
-      setSocialLinks(socialLinksArray);
-    }, []);
+  const [contactInfo, setContactInfo] = useState([]);
+  const [socialLinks, setSocialLinks] = useState([]);
+
+  useEffect(() => {
+    setContactInfo(contactInfoArray);
+    setSocialLinks(general?.socialLinks);
+  }, []);
 
   return (
     <>
-      {/* <div className="breadcrumb">
-        <div className="container">
-          <div className="breadcrumbtitle">
-            <h2>Contact</h2>
-          </div>
-          <div className="breadcrumb-wrap d-flex justify-content-center flex-wrap align-items-center">
-            <div className="breadcrumb-list">
-              <Link to="/" className="text">
-                Home
-              </Link>
-              <i className="icon icon-arrow-right"></i>
-              <Link to="#" className="text">
-                Contact
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
-      <div className="page-contact mt-4">
+    
+      <div className="page-contact my-4">
         <div className="container">
           <h1 className="page-title">Contact</h1>
           <div className="contact-wrap">
@@ -116,7 +98,7 @@ const Contact = () => {
               </div>
             </div>
             <div className="contact-info">
-              <div className="contact-title">         
+              <div className="contact-title">
                 <h4>{contactInfo.title}</h4>
                 <div className="contact-sub">
                   {/* We'd love to hear from you - please use the form to send us
@@ -146,7 +128,7 @@ const Contact = () => {
                 </ul>
               </div>
               <div className="contact-info__social">
-                <ul className="list-unstyled list-social">
+                {/* <ul className="list-unstyled list-social">
                   <li className="list-social__item">
                     <Link
                       to="#"
@@ -197,6 +179,21 @@ const Contact = () => {
                       <span>YouTube</span>
                     </Link>
                   </li>
+                </ul> */}
+                <ul className="list-unstyled list-social">
+                  {socialLinks.map((item) => (
+                    <li key={item.id} className="list-social__item">
+                      <Link
+                        to={item.url}
+                        className="link list-social__link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.icon}
+                        <span>{item.name}</span>
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>

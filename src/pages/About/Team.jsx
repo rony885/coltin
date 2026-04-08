@@ -6,14 +6,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import teamsArray from "../../DataJs/teams.js";
+import about from "../../DataJs/about.js";
 
 const Team = () => {
   const swiperRef = useRef(null);
   const [teams, setTeams] = useState([]);
 
   useEffect(() => {
-    setTeams(teamsArray);
+    setTeams(about?.teams);
   }, []);
 
   return (
@@ -55,7 +55,7 @@ const Team = () => {
                 0: { slidesPerView: 1 },
               }}
             >
-              {teams.map((member) => (
+              {teams?.map((member) => (
                 <SwiperSlide key={member.id}>
                   <div className="item item-1">
                     <div className="item-inn">

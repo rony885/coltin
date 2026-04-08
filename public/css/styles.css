@@ -14721,7 +14721,8 @@ ul.tags-lists li a:hover {
 
   .blog-sidebar-main>.list-blog,
   .blog-list-main>.list-blog {
-    width: calc(75% - 15px);
+    /* width: calc(75% - 15px); */
+    width: 100%;
   }
 
   .blog-sidebar-main>.ss-section-sidebar,

@@ -34,6 +34,8 @@ import Gallery from "./pages/Gallery/Gallery";
 import Top from "./components/Top";
 // import ModalFindSize from "./components/ModalFindSize";
 
+import axios from "axios";
+
 function App() {
   const [cartOpen, setCartOpen] = useState(false);
   const [filterSidebarOpen, setFilterSidebarOpen] = useState(false);
@@ -69,6 +71,38 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch Categories
+        const categoriesRes = await axios.get(
+          "https://apps.fusiontradebd.com/server/product_api/unpaginate_product_category/",
+        );
+        setCategories(categoriesRes.data);
+
+        // Fetch Sub-Categories
+        const subCategoriesRes = await axios.get(
+          "https://apps.fusiontradebd.com/server/product_api/unpaginate_product_sub_category",
+        );
+        setSubCategories(subCategoriesRes.data);
+
+        // Fetch Brands
+        const brandsRes = await axios.get(
+          "https://apps.fusiontradebd.com/server/product_api/unpaginate_product_brand",
+        );
+        setBrands(brandsRes.data);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <BrowserRouter>
       {isLoading ? (
@@ -81,11 +115,11 @@ function App() {
           >
             <Top />
             {/* <TopBar /> */}
-            <Header toggleCart={toggleCart} />
+            <Header toggleCart={toggleCart} categories={categories} />
             <Routes>
               <Route
                 path="/"
-                element={<Home openQuickView={openQuickView} />}
+                element={<Home openQuickView={openQuickView} categories={categories} />}
               />
               <Route path="/about" element={<About />} />
               <Route
@@ -94,6 +128,10 @@ function App() {
                   <Product
                     toggleFilterSidebar={toggleFilterSidebar}
                     openQuickView={openQuickView}
+                    categories={categories}
+                    subCategories={subCategories}
+                    brands={brands}
+
                   />
                 }
               />
@@ -110,7 +148,7 @@ function App() {
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/blog" element={<Blog />} />
-              <Route path="/blog-details" element={<BlogDetails />} />
+              <Route path="/blog-details/:id" element={<BlogDetails />} />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/view-cart" element={<ViewCart />} />
               <Route path="/checkout" element={<Checkout />} />

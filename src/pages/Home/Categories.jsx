@@ -7,38 +7,38 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { FiArrowUpRight } from "react-icons/fi";
 
-const categories = [
-  {
-    id: 1,
-    img: "/images/collections/cat1.jpg",
-    name: "Women’s Salwar Kameez",
-    items: 8,
-  },
-  {
-    id: 2,
-    img: "/images/collections/cat2.jpg",
-    name: "Men’s Panjabi",
-    items: 8,
-  },
-  { id: 3, img: "/images/collections/cat3.jpg", name: "Kids Wear", items: 8 },
-  { id: 4, img: "/images/collections/cat4.jpg", name: "Men’s Lungi", items: 8 },
-  { id: 5, img: "/images/collections/cat5.jpg", name: "Men’s Shirt", items: 9 },
-  {
-    id: 6,
-    img: "/images/collections/cat6.jpg",
-    name: "Woman's Top Wear",
-    items: 8,
-  },
-  { id: 7, img: "/images/collections/cat7.jpg", name: "Men’s Pant", items: 10 },
-  {
-    id: 8,
-    img: "/images/collections/cat8.jpg",
-    name: "Fashion Accessories",
-    items: 10,
-  },
-];
+// const categories = [
+//   {
+//     id: 1,
+//     img: "/images/collections/cat1.jpg",
+//     name: "Women’s Salwar Kameez",
+//     items: 8,
+//   },
+//   {
+//     id: 2,
+//     img: "/images/collections/cat2.jpg",
+//     name: "Men’s Panjabi",
+//     items: 8,
+//   },
+//   { id: 3, img: "/images/collections/cat3.jpg", name: "Kids Wear", items: 8 },
+//   { id: 4, img: "/images/collections/cat4.jpg", name: "Men’s Lungi", items: 8 },
+//   { id: 5, img: "/images/collections/cat5.jpg", name: "Men’s Shirt", items: 9 },
+//   {
+//     id: 6,
+//     img: "/images/collections/cat6.jpg",
+//     name: "Woman's Top Wear",
+//     items: 8,
+//   },
+//   { id: 7, img: "/images/collections/cat7.jpg", name: "Men’s Pant", items: 10 },
+//   {
+//     id: 8,
+//     img: "/images/collections/cat8.jpg",
+//     name: "Fashion Accessories",
+//     items: 10,
+//   },
+// ];
 
-const Categories = () => {
+const Categories = ({ categories }) => {
   const swiperRef = useRef(null);
 
   return (
@@ -46,7 +46,7 @@ const Categories = () => {
       <div className="widget-collection mb_90">
         <div className="container">
           <div className="box-title">
-            <h3>Featured Categories</h3>
+            <h3 className="text-uppercase fs-4 fw-bold">Featured Categories</h3>
           </div>
 
           {/* Custom Navigation Buttons */}
@@ -86,7 +86,11 @@ const Categories = () => {
                   <div className="collect">
                     <div className="collect-img">
                       <Link to="/product">
-                        <img src={cat.img} alt={cat.name} />
+                        <img
+                          src={cat.image || "/default-produt-image.jpg"}
+                          alt={cat.name}
+                          style={{ width: "157px", height: "157px" }}
+                        />
                       </Link>
                       <div className="collect-info__view">
                         <Link to="/product">
@@ -99,7 +103,7 @@ const Categories = () => {
                       <Link className="collect-name" to="/product">
                         {cat.name}
                       </Link>
-                      <span className="count">{cat.items} items</span>
+                      <span className="count">{cat.items || "5"} items</span>
                     </div>
                   </div>
                 </div>

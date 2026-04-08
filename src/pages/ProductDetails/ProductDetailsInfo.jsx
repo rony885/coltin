@@ -42,25 +42,9 @@ const ProductDetailsInfo = ({ toggleCart }) => {
 
   return (
     <Wrapper>
-      <div className="breadcrumb">
-        <div className="container">
-          <div className="breadcrumb-wrap d-flex justify-content-center flex-wrap align-items-center">
-            <div className="breadcrumb-list">
-              <Link to="/" className="text">
-                Home
-              </Link>
-              <i className="icon icon-arrow-right"></i>
-              <Link to="#" className="text">
-                Women
-              </Link>
-              <i className="icon icon-arrow-right"></i>
-              <span className="text">Cotton jersey top</span>
-            </div>
-          </div>
-        </div>
-      </div>
+ 
 
-      <section className="flat-spacing-4 pt_0">
+      <section className="flat-spacing-4 pt_0 my-4">
         <div className="tf-main-product section-image-zoom zoom-active">
           <div className="container">
             <div className="row">

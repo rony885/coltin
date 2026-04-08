@@ -10,21 +10,23 @@ import {
   FiUser,
   FiX,
 } from "react-icons/fi";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
-const Header = ({ toggleCart }) => {
-  // const location = useLocation();
-  // const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+// Array of icon paths (you can add more if needed)
+const iconPaths = [
+  "/images/menu/Vertical_icon_1.png",
+  "/images/menu/Vertical_icon_2.png",
+  "/images/menu/Vertical_icon_3.png",
+  "/images/menu/Vertical_icon_4.png",
+  "/images/menu/Vertical_icon_5.png",
+  "/images/menu/Vertical_icon_6.png",
+  "/images/menu/Vertical_icon_7.png",
+  "/images/menu/Vertical_icon_8.png",
+  "/images/menu/Vertical_icon_9.png",
+  "/images/menu/Vertical_icon_10.png",
+];
 
-  // // Auto control based on route
-  // useEffect(() => {
-  //   if (location.pathname === "/") {
-  //     setIsCategoryOpen(true); // Home → open
-  //   } else {
-  //     setIsCategoryOpen(false); // Other pages → closed
-  //   }
-  // }, [location.pathname]);
-
+const Header = ({ toggleCart, categories }) => {
   const location = useLocation();
   const isHome = location.pathname === "/";
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
@@ -126,43 +128,6 @@ const Header = ({ toggleCart }) => {
                   <div className="widget-verticalmenu">
                     <div className="vertical-content">
                       <div className="navbar-vertical">
-                        {/* <button
-                          style={{ background: "#ffffff", color: "#000000" }}
-                          type="button"
-                          id="show-verticalmenu"
-                          className="navbar-toggles"
-                        >
-                          <span className="icon-before-title">
-                            <FiGrid size={20} />
-                          </span>
-                          <span className="title-nav">All Categories</span>
-                          <span className="icon-after-title">
-                            <FiChevronDown size={20} />
-                          </span>
-                        </button> */}
-                        {/* <button
-                          type="button"
-                          id="show-verticalmenu"
-                          className="navbar-toggles"
-                          onClick={() => setIsCategoryOpen((prev) => !prev)}
-                        >
-                          <span className="icon-before-title">
-                            <FiGrid size={20} />
-                          </span>
-                          <span className="title-nav">All Categories</span>
-                          <span className="icon-after-title">
-                            <FiChevronDown
-                              size={20}
-                              style={{
-                                transform: isCategoryOpen
-                                  ? "rotate(180deg)"
-                                  : "rotate(0deg)",
-                                transition: "0.3s",
-                              }}
-                            />
-                          </span>
-                        </button> */}
-
                         <button
                           type="button"
                           id="show-verticalmenu"
@@ -192,7 +157,7 @@ const Header = ({ toggleCart }) => {
                           </span>
                         </button>
                       </div>
-                      {/* <div className="vertical-wrapper"> */}
+
                       <div
                         className={`vertical-wrapper ${
                           isCategoryOpen ? "open" : "closed"
@@ -204,389 +169,34 @@ const Header = ({ toggleCart }) => {
                           </div>
                         </div>
                         <ul className="vertical-group">
-                          <li className="vertical-item level1 toggle-menu vertical_drop mega_parent">
-                            <Link className="menu-link" to="/shop">
-                              <span className="icon_items">
-                                <img
-                                  className="lazyload"
-                                  data-src="images/menu/Vertical_icon_1.png"
-                                  src="images/menu/Vertical_icon_1.png"
-                                  alt=""
-                                />
-                              </span>
-                              <span className="menu-title">
-                                Smartphone &amp; Tablet
-                              </span>
-                              <span className="caret">
-                                <FiChevronDown size={12} />
-                              </span>
-                            </Link>
-                            <div
-                              className="vertical-drop drop-mega drop-lv1 sub-menu"
-                              style={{ width: "500px" }}
-                            >
-                              <div className="row">
-                                <div className="ss_megamenu_col col_menu col-lg-6">
-                                  <div className="row">
-                                    <div className="ss_megamenu_col col-lg-12">
-                                      <ul className="content-links">
-                                        <li className="ss_megamenu_lv2 menuTitle">
-                                          <Link
-                                            className="Categories"
-                                            to="https://magento2.magentech.com/collections"
-                                            title=""
-                                          >
-                                            Categories
-                                          </Link>
-                                        </li>
-                                        <li className="ss_megamenu_lv3">
-                                          <Link to="/shop-default" title="">
-                                            Cell phones
-                                          </Link>
-                                        </li>
-                                        <li className="ss_megamenu_lv3">
-                                          <Link to="/shop-default" title="">
-                                            Camera &amp; Photo
-                                          </Link>
-                                        </li>
-                                        <li className="ss_megamenu_lv3">
-                                          <Link to="/shop-default" title="">
-                                            Living Room
-                                          </Link>
-                                        </li>
-                                        <li className="ss_megamenu_lv3">
-                                          <Link to="/shop-default" title="">
-                                            Computers
-                                          </Link>
-                                        </li>
-                                        <li className="ss_megamenu_lv3">
-                                          <Link to="/shop-default" title="">
-                                            Watches
-                                          </Link>
-                                        </li>
-                                        <li className="ss_megamenu_lv3">
-                                          <Link to="/shop-default" title="">
-                                            Fashion
-                                          </Link>
-                                        </li>
-                                        <li className="ss_megamenu_lv3">
-                                          <Link
-                                            to="https://magento2.magentech.com/collections/collection"
-                                            title=""
-                                          >
-                                            Cars &amp; Motorbikes
-                                          </Link>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="ss_megamenu_col banner_first col-lg-6 space_vetical">
-                                  <div className="first vertical-banner">
+                          {categories.map((category, index) => {
+                            // Cycle through icons if more categories than icons
+                            const icon = iconPaths[index % iconPaths.length];
+
+                            return (
+                              <li
+                                key={category.id}
+                                className="vertical-item level1 toggle-menu"
+                              >
+                                <Link className="menu-link" to="/product">
+                                  <span className="icon_items">
                                     <img
                                       className="lazyload"
-                                      data-src="images/menu/menu-image.png"
-                                      src="/images/menu/menu-image.png"
-                                      alt=""
+                                      data-src={icon}
+                                      src={icon}
+                                      alt={category.name}
                                     />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                          <li className="vertical-item level1 toggle-menu vertical_drop css_parent">
-                            <Link className="menu-link" to="/shop-default">
-                              <span className="icon_items">
-                                <img
-                                  className="lazyload"
-                                  data-src="images/menu/Vertical_icon_2.png"
-                                  src="/images/menu/Vertical_icon_2.png"
-                                  alt=""
-                                />
-                              </span>
-                              <span className="menu-title">Electronics</span>
-                              <span className="caret">
-                                <FiChevronDown size={12} />
-                              </span>
-                            </Link>
-                            <ul className="vertical-drop drop-css drop-lv1 sub-menu">
-                              <li className="vertical-item sub-dropdown toggle-menu">
-                                <Link
-                                  className="menu-link"
-                                  to="/shop-default"
-                                  title=""
-                                >
-                                  Accessories
+                                  </span>
+                                  <span className="menu-title">
+                                    {category.name}
+                                  </span>
                                   <span className="caret">
                                     <FiChevronDown size={12} />
                                   </span>
                                 </Link>
-                                <ul className="vertical-drop drop-lv2 dropdown-content sub-menu">
-                                  <li className="vertical-item level2">
-                                    <Link to="/shop-default" title="">
-                                      Cameras &amp; Photos
-                                    </Link>
-                                  </li>
-                                  <li className="vertical-item level2">
-                                    <Link to="/shop-default" title="">
-                                      Fashion Clothing
-                                    </Link>
-                                  </li>
-                                  <li className="vertical-item level2">
-                                    <Link
-                                      to="https://magento2.magentech.com/collections/headphone"
-                                      title=""
-                                    >
-                                      Headphone
-                                    </Link>
-                                  </li>
-                                  <li className="vertical-item level2">
-                                    <Link to="/shop-default" title="">
-                                      Games &amp; Consoles
-                                    </Link>
-                                  </li>
-                                  <li className="vertical-item level2">
-                                    <Link
-                                      to="https://magento2.magentech.com/collections/headphone"
-                                      title=""
-                                    >
-                                      Toys, Games &amp; Kids
-                                    </Link>
-                                  </li>
-                                </ul>
                               </li>
-                              <li className="vertical-item sub-dropdown toggle-menu">
-                                <Link
-                                  className="menu-link"
-                                  to="/shop-default"
-                                  title=""
-                                >
-                                  Women collections
-                                  <span className="caret">
-                                    <FiChevronDown size={12} />
-                                  </span>
-                                </Link>
-                                <ul className="vertical-drop drop-lv2 dropdown-content sub-menu">
-                                  <li className="vertical-item level2">
-                                    <Link to="/shop-default" title="">
-                                      Electric Kitchen
-                                    </Link>
-                                  </li>
-                                  <li className="vertical-item level2">
-                                    <Link to="/shop-default" title="">
-                                      Fashion Clothing
-                                    </Link>
-                                  </li>
-                                  <li className="vertical-item level2">
-                                    <Link
-                                      to="https://magento2.magentech.com/collections/handbags-1"
-                                      title=""
-                                    >
-                                      Games &amp; Consoles
-                                    </Link>
-                                  </li>
-                                  <li className="vertical-item level2">
-                                    <Link
-                                      to="https://magento2.magentech.com/collections/headphone"
-                                      title=""
-                                    >
-                                      Headphone
-                                    </Link>
-                                  </li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </li>
-                          <li className="vertical-item level1 toggle-menu">
-                            <Link className="menu-link" to="/shop-default">
-                              <span className="icon_items">
-                                <img
-                                  className="lazyload"
-                                  data-src="/images/menu/Vertical_icon_3.png"
-                                  src="/images/menu/Vertical_icon_3.png"
-                                  alt=""
-                                />
-                              </span>
-                              <span className="menu-title">Fashion</span>
-                            </Link>
-                          </li>
-                          <li className="vertical-item level1 toggle-menu">
-                            <Link className="menu-link" to="/shop-default">
-                              <span className="icon_items">
-                                <img
-                                  className="lazyload"
-                                  data-src="/images/menu/Vertical_icon_4.png"
-                                  src="/images/menu/Vertical_icon_4.png"
-                                  alt=""
-                                />
-                              </span>
-                              <span className="menu-title">
-                                Furniture &amp; Decor
-                              </span>
-                            </Link>
-                          </li>
-                          <li className="vertical-item level1 toggle-menu vertical_drop mega_parent">
-                            <Link className="menu-link" to="/shop-default">
-                              <span className="icon_items">
-                                <img
-                                  className="lazyload"
-                                  data-src="/images/menu/Vertical_icon_5.png"
-                                  src="/images/menu/Vertical_icon_5.png"
-                                  alt=""
-                                />
-                              </span>
-                              <span className="menu-title">
-                                Jewelry &amp; Accessories
-                              </span>
-                              <span className="caret">
-                                <FiChevronDown size={12} />
-                              </span>
-                            </Link>
-                            <div
-                              className="vertical-drop drop-mega drop-lv1 sub-menu"
-                              style={{ width: "500px" }}
-                            >
-                              <div className="row">
-                                <div className="ss_megamenu_col col_menu col-lg-6">
-                                  <div className="row">
-                                    <div className="ss_megamenu_col col-lg-12">
-                                      <ul className="content-links">
-                                        <li className="ss_megamenu_lv2 menuTitle">
-                                          <Link
-                                            className="Categories"
-                                            to="/shop-default"
-                                            title=""
-                                          >
-                                            Categories
-                                          </Link>
-                                        </li>
-                                        <li className="ss_megamenu_lv3">
-                                          <Link to="/shop-default" title="">
-                                            Accessories
-                                          </Link>
-                                        </li>
-                                        <li className="ss_megamenu_lv3">
-                                          <Link
-                                            to="https://magento2.magentech.com/collections/handbags"
-                                            title=""
-                                          >
-                                            Handbags
-                                          </Link>
-                                        </li>
-                                        <li className="ss_megamenu_lv3">
-                                          <Link
-                                            to="https://magento2.magentech.com/collections/frontpage"
-                                            title=""
-                                          >
-                                            Hat
-                                          </Link>
-                                        </li>
-                                        <li className="ss_megamenu_lv3">
-                                          <Link
-                                            to="https://magento2.magentech.com/collections/blazers"
-                                            title=""
-                                          >
-                                            Sunglasses
-                                          </Link>
-                                        </li>
-                                        <li className="ss_megamenu_lv3">
-                                          <Link
-                                            to="https://magento2.magentech.com/collections/shoes-1"
-                                            title=""
-                                          >
-                                            Shoes
-                                          </Link>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="ss_megamenu_col banner_first col-lg-6 space_vetical">
-                                  <div className="first vertical-banner">
-                                    <img
-                                      className="lazyload"
-                                      data-src="/images/menu/menu-image2.png"
-                                      src="/images/menu/menu-image2.png"
-                                      alt=""
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                          <li className="vertical-item level1 toggle-menu">
-                            <Link className="menu-link" to="/shop-default">
-                              <span className="icon_items">
-                                <img
-                                  className="lazyload"
-                                  data-src="/images/menu/Vertical_icon_6.png"
-                                  src="/images/menu/Vertical_icon_6.png"
-                                  alt=""
-                                />
-                              </span>
-                              <span className="menu-title">
-                                Health &amp; Beauty
-                              </span>
-                            </Link>
-                          </li>
-                          <li className="vertical-item level1 toggle-menu">
-                            <Link className="menu-link" to="/shop-default">
-                              <span className="icon_items">
-                                <img
-                                  className="lazyload"
-                                  data-src="/images/menu/Vertical_icon_7.png"
-                                  src="/images/menu/Vertical_icon_7.png"
-                                  alt=""
-                                />
-                              </span>
-                              <span className="menu-title">Mom &amp; Baby</span>
-                            </Link>
-                          </li>
-                          <li className="vertical-item level1 toggle-menu">
-                            <Link className="menu-link" to="/shop-default">
-                              <span className="icon_items">
-                                <img
-                                  className="lazyload"
-                                  data-src="/images/menu/Vertical_icon_8.png"
-                                  src="/images/menu/Vertical_icon_8.png"
-                                  alt=""
-                                />
-                              </span>
-                              <span className="menu-title">
-                                Game &amp; Console
-                              </span>
-                            </Link>
-                          </li>
-                          <li className="vertical-item level1 toggle-menu">
-                            <Link className="menu-link" to="/shop-default">
-                              <span className="icon_items">
-                                <img
-                                  className="lazyload"
-                                  data-src="/images/menu/Vertical_icon_9.png"
-                                  src="/images/menu/Vertical_icon_9.png"
-                                  alt=""
-                                />
-                              </span>
-                              <span className="menu-title">
-                                Cars &amp; Motorbikes
-                              </span>
-                            </Link>
-                          </li>
-                          <li className="vertical-item level1 toggle-menu">
-                            <Link className="menu-link" to="/shop-default">
-                              <span className="icon_items">
-                                <img
-                                  className="lazyload"
-                                  data-src="/images/menu/Vertical_icon_10.png"
-                                  src="/images/menu/Vertical_icon_10.png"
-                                  alt=""
-                                />
-                              </span>
-                              <span className="menu-title">
-                                Sport &amp; Outdoor
-                              </span>
-                            </Link>
-                          </li>
+                            );
+                          })}
                         </ul>
                       </div>
                     </div>
@@ -601,35 +211,66 @@ const Header = ({ toggleCart }) => {
             <div className="col-xl-6 d-none d-xl-block">
               <nav className="box-navigation text-center">
                 <ul className="box-nav-ul d-flex align-items-center justify-content-left gap-30">
-                  <li className="menu-item item-home">
-                    <Link to="/" className="item-link">
+                  <li className="menu-item">
+                    <NavLink
+                      to="/"
+                      end
+                      className={({ isActive }) =>
+                        isActive ? "item-link active" : "item-link"
+                      }
+                    >
                       Home
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className="menu-item">
-                    <Link to="/about" className="item-link">
+                    <NavLink
+                      to="/about"
+                      className={({ isActive }) =>
+                        isActive ? "item-link active" : "item-link"
+                      }
+                    >
                       About
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className="menu-item">
-                    <Link to="/product" className="item-link">
+                    <NavLink
+                      to="/product"
+                      className={({ isActive }) =>
+                        isActive ? "item-link active" : "item-link"
+                      }
+                    >
                       Products
-                    </Link>
+                    </NavLink>
                   </li>
-                  <li className="menu-item position-relative">
-                    <Link to="/gallery" className="item-link">
+                  <li className="menu-item">
+                    <NavLink
+                      to="/gallery"
+                      className={({ isActive }) =>
+                        isActive ? "item-link active" : "item-link"
+                      }
+                    >
                       Gallery
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className="menu-item">
-                    <Link to="/blog" className="item-link">
+                    <NavLink
+                      to="/blog"
+                      className={({ isActive }) =>
+                        isActive ? "item-link active" : "item-link"
+                      }
+                    >
                       Blog
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className="menu-item">
-                    <Link to="/contact" className="item-link">
+                    <NavLink
+                      to="/contact"
+                      className={({ isActive }) =>
+                        isActive ? "item-link active" : "item-link"
+                      }
+                    >
                       Contact
-                    </Link>
+                    </NavLink>
                   </li>
                 </ul>
               </nav>
@@ -672,6 +313,18 @@ const Wrapper = styled.section`
 
   body.home-page .navbar-toggles {
     cursor: default;
+  }
+
+  .item-link.active {
+    color: var(--primary) !important;
+  }
+
+  /* Active menu underline */
+  #header .box-nav-ul li .item-link.active::before {
+    width: 100%;
+    left: 0;
+    right: auto;
+    background: var(--primary);
   }
 `;
 
