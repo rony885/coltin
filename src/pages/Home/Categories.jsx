@@ -7,37 +7,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { FiArrowUpRight } from "react-icons/fi";
 
-// const categories = [
-//   {
-//     id: 1,
-//     img: "/images/collections/cat1.jpg",
-//     name: "Women’s Salwar Kameez",
-//     items: 8,
-//   },
-//   {
-//     id: 2,
-//     img: "/images/collections/cat2.jpg",
-//     name: "Men’s Panjabi",
-//     items: 8,
-//   },
-//   { id: 3, img: "/images/collections/cat3.jpg", name: "Kids Wear", items: 8 },
-//   { id: 4, img: "/images/collections/cat4.jpg", name: "Men’s Lungi", items: 8 },
-//   { id: 5, img: "/images/collections/cat5.jpg", name: "Men’s Shirt", items: 9 },
-//   {
-//     id: 6,
-//     img: "/images/collections/cat6.jpg",
-//     name: "Woman's Top Wear",
-//     items: 8,
-//   },
-//   { id: 7, img: "/images/collections/cat7.jpg", name: "Men’s Pant", items: 10 },
-//   {
-//     id: 8,
-//     img: "/images/collections/cat8.jpg",
-//     name: "Fashion Accessories",
-//     items: 10,
-//   },
-// ];
-
 const Categories = ({ categories }) => {
   const swiperRef = useRef(null);
 
@@ -68,7 +37,7 @@ const Categories = ({ categories }) => {
           <Swiper
             ref={swiperRef}
             modules={[Pagination]}
-            pagination={{ clickable: true }}
+            // pagination={{ clickable: true }}
             spaceBetween={15}
             slidesPerView={7}
             breakpoints={{
@@ -77,6 +46,7 @@ const Categories = ({ categories }) => {
               992: { slidesPerView: 4 },
               768: { slidesPerView: 3 },
               576: { slidesPerView: 2 },
+              320: { slidesPerView: 2 },
               0: { slidesPerView: 1 },
             }}
           >
@@ -85,22 +55,39 @@ const Categories = ({ categories }) => {
                 <div className="collection-item">
                   <div className="collect">
                     <div className="collect-img">
-                      <Link to="/product">
+                      <Link
+                        to="/product"
+                        onClick={() =>
+                          localStorage.setItem("selectedCategory", cat.id)
+                        }
+                      >
                         <img
+                          data-src={cat.image || "/default-produt-image.jpg"}
                           src={cat.image || "/default-produt-image.jpg"}
                           alt={cat.name}
                           style={{ width: "157px", height: "157px" }}
                         />
                       </Link>
                       <div className="collect-info__view">
-                        <Link to="/product">
+                        <Link
+                          to="/product"
+                          onClick={() =>
+                            localStorage.setItem("selectedCategory", cat.id)
+                          }
+                        >
                           <FiArrowUpRight size={20} />
                         </Link>
                       </div>
                     </div>
 
                     <div className="collect-info">
-                      <Link className="collect-name" to="/product">
+                      <Link
+                        className="collect-name"
+                        to="/product"
+                        onClick={() =>
+                          localStorage.setItem("selectedCategory", cat.id)
+                        }
+                      >
                         {cat.name}
                       </Link>
                       <span className="count">{cat.items || "5"} items</span>

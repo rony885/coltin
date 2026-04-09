@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
 import galleryArray from "../../DataJs/gallery.js";
 
 const Gallery = () => {
@@ -33,26 +32,8 @@ const Gallery = () => {
 
   return (
     <Wrapper>
-      {/* Breadcrumb */}
-      {/* <div className="breadcrumb">
-        <div className="container">
-          <div className="breadcrumbtitle">
-            <h2>Photo gallery</h2>
-          </div>
-          <div className="breadcrumb-wrap d-flex justify-content-center flex-wrap align-items-center">
-            <div className="breadcrumb-list">
-              <Link to="/" className="text">
-                Home
-              </Link>
-              <i className="icon icon-arrow-right"></i>
-              <span className="text">Photo gallery</span>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
       {/* Gallery */}
-      <div className="page--information container mt-4">
+      <div className="page--information container my-4">
         <div className="content--gallery">
           <div className="row">
             {galleries.map((item, index) => (
@@ -79,35 +60,6 @@ const Gallery = () => {
               </div>
             ))}
           </div>
-
-          {/* Pagination (static) */}
-          <ul className="pagination-wrap pagination-list pagination-btn">
-            <li className="active">
-              <Link to="#" className="pagination-link">
-                1
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="pagination-link">
-                2
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="pagination-link">
-                3
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="pagination-link">
-                4
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="pagination-link">
-                <span className="icon icon-arrow-right"></span>
-              </Link>
-            </li>
-          </ul>
         </div>
       </div>
 

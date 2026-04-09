@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
-import { SiX } from "react-icons/si";
 import { Link } from "react-router-dom";
 
 import contactInfoArray from "../../DataJs/contactInfo.js";
@@ -17,7 +15,6 @@ const Contact = () => {
 
   return (
     <>
-    
       <div className="page-contact my-4">
         <div className="container">
           <h1 className="page-title">Contact</h1>
@@ -97,15 +94,11 @@ const Contact = () => {
                 </form>
               </div>
             </div>
+
             <div className="contact-info">
               <div className="contact-title">
                 <h4>{contactInfo.title}</h4>
-                <div className="contact-sub">
-                  {/* We'd love to hear from you - please use the form to send us
-                  your message or ideas. <br />
-                  Or simply pop in for Link cup of fresh tea and Link cookie: */}
-                  {contactInfo.description}
-                </div>
+                <div className="contact-sub">{contactInfo.description}</div>
               </div>
               <div className="contact-info__content">
                 <ul className="list-unstyled">
@@ -127,59 +120,8 @@ const Contact = () => {
                   </li>
                 </ul>
               </div>
+
               <div className="contact-info__social">
-                {/* <ul className="list-unstyled list-social">
-                  <li className="list-social__item">
-                    <Link
-                      to="#"
-                      className="link list-social__link"
-                      target="_blank"
-                    >
-                      <FaFacebookF size={24} />
-                      <span>Facebook</span>
-                    </Link>
-                  </li>
-                  <li className="list-social__item">
-                    <Link
-                      to="https://instagram.com/shopify"
-                      className="link list-social__link"
-                      target="_blank"
-                    >
-                      <FaInstagram size={24} />
-                      <span>Instagram</span>
-                    </Link>
-                  </li>
-                  <li className="list-social__item">
-                    <Link
-                      to="https://twitter.com/shopify"
-                      className="link list-social__link"
-                      target="_blank"
-                    >
-                      <SiX size={24} />
-                      <span>Twitter</span>
-                    </Link>
-                  </li>
-                  <li className="list-social__item">
-                    <Link
-                      to="#"
-                      className="link list-social__link"
-                      target="_blank"
-                    >
-                      <FaTiktok size={24} />
-                      <span>TikTok</span>
-                    </Link>
-                  </li>
-                  <li className="list-social__item">
-                    <Link
-                      to="https://www.youtube.com/shopify"
-                      className="link list-social__link"
-                      target="_blank"
-                    >
-                      <FaYoutube size={24} />
-                      <span>YouTube</span>
-                    </Link>
-                  </li>
-                </ul> */}
                 <ul className="list-unstyled list-social">
                   {socialLinks.map((item) => (
                     <li key={item.id} className="list-social__item">

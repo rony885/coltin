@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 import slidersArray from "../../DataJs/sliders.js";
 
 const HeroSlider = () => {
@@ -13,8 +12,6 @@ const HeroSlider = () => {
   useEffect(() => {
     setSlides(slidersArray);
   }, []);
-
-
 
   const NextArrow = ({ onClick }) => {
     return (
@@ -31,18 +28,6 @@ const HeroSlider = () => {
       </button>
     );
   };
-
-  // const settings = {
-  //   dots: true,
-  //   arrows: true,
-  //   infinite: true,
-  //   speed: 600,
-  //   slidesToShow: 1,
-  //   slidesToScroll: 1,
-  //   autoplay: true,
-  //   autoplaySpeed: 3000,
-  //   pauseOnHover: true,
-  // };
 
   const settings = {
     dots: true,

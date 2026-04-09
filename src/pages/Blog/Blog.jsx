@@ -26,6 +26,7 @@ const Blog = () => {
                         <Link to={`/blog-details/${blog.id}`}>
                           <img
                             className="lazyload"
+                            data-src={blog.img}
                             src={blog.img}
                             alt="img-blog"
                           />
@@ -58,48 +59,10 @@ const Blog = () => {
                     </div>
                   </div>
                 ))}
-
-                <ul className="pagination-wrap pagination-list pagination-btn">
-                  <li className="active">
-                    <Link to="#" className="pagination-link">
-                      1
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="pagination-link">
-                      2
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="pagination-link">
-                      3
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="pagination-link">
-                      4
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="pagination-link">
-                      <span className="icon icon-arrow-right"></span>
-                    </Link>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="btn-sidebar-mobile">
-        <button
-          data-bs-toggle="offcanvas"
-          data-bs-target="#sidebarmobile"
-          aria-controls="offcanvas"
-        >
-          <i className="icon-open"></i>
-        </button>
       </div>
     </>
   );

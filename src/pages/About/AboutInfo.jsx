@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import about from "../../DataJs/about.js";
-// import countAboutArray from "../../DataJs/countAbout.js";
-// import videoAboutArray from "../../DataJs/videoAbout.js";
 
 const AboutInfo = () => {
   const [abouts, setAbouts] = useState([]);
@@ -18,32 +15,19 @@ const AboutInfo = () => {
 
   return (
     <>
-      <div className="about-us my-4">
+      <div className="about-us mt-4">
         <div className="container">
           <div className="banner">
-            <Link href="#">
+            <Link to="#">
               <img
                 className="img-product lazyloaded"
-                // data-src="images/about-us/about_us.jpg"
-                // src="images/about-us/about_us.jpg"
+                data-src={abouts.bannerImage}
                 src={abouts.bannerImage}
                 alt="Imagee"
               />
             </Link>
           </div>
           <div className="flat-spacing-17 item-text text-center">
-            {/* <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud
-              <br />
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur.
-              <br />
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-              officia deserunt mollit anim id est laborum.
-            </p> */}
             <p>{abouts.description}</p>
           </div>
         </div>
@@ -83,6 +67,7 @@ const AboutInfo = () => {
           >
             <img
               className="img-product lazyloaded"
+              data-src={videos.thumbnail}
               src={videos.thumbnail}
               alt="Video Thumbnail"
             />

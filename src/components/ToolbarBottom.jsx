@@ -1,42 +1,46 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useCartContext } from "../context/CartContext";
 
 const ToolbarBottom = () => {
+  const { wishlist: cartItems, cart } = useCartContext();
+
   return (
     <div className="ss-toolbar-bottom type-1150">
       <div className="toolbar-item">
-        <a href="#toolbarShopmb" data-bs-toggle="offcanvas">
+        <Link to="/product">
           <div className="toolbar-icon">
             <i className="icon-shop"></i>
           </div>
           <div className="toolbar-label">Shop</div>
-        </a>
+        </Link>
       </div>
 
       <div className="toolbar-item">
-        <a href="#login" data-bs-toggle="modal">
+        <Link to="/account">
           <div className="toolbar-icon">
             <i className="icon-account"></i>
           </div>
           <div className="toolbar-label">Account</div>
-        </a>
+        </Link>
       </div>
       <div className="toolbar-item">
-        <a href="wishlist.html">
+        <Link to="/wishlist">
           <div className="toolbar-icon">
             <i className="icon-heart"></i>
-            <div className="toolbar-count">0</div>
+            <div className="toolbar-count">{cartItems.length}</div>
           </div>
           <div className="toolbar-label">Wishlist</div>
-        </a>
+        </Link>
       </div>
       <div className="toolbar-item">
-        <a href="#shoppingCart" data-bs-toggle="modal">
+        <Link to="/view-cart">
           <div className="toolbar-icon">
             <i className="icon-bag"></i>
-            <div className="toolbar-count">1</div>
+            <div className="toolbar-count">{cart.length}</div>
           </div>
           <div className="toolbar-label">Cart</div>
-        </a>
+        </Link>
       </div>
     </div>
   );

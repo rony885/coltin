@@ -11,6 +11,7 @@ import {
   FiX,
 } from "react-icons/fi";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { useCartContext } from "../../context/CartContext";
 
 // Array of icon paths (you can add more if needed)
 const iconPaths = [
@@ -27,6 +28,8 @@ const iconPaths = [
 ];
 
 const Header = ({ toggleCart, categories }) => {
+  const { wishlist: cartItems ,cart} = useCartContext();
+
   const location = useLocation();
   const isHome = location.pathname === "/";
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
@@ -83,18 +86,13 @@ const Header = ({ toggleCart, categories }) => {
                 <li className="nav-wishlist">
                   <Link to="/wishlist" className="nav-icon-item">
                     <FiHeart size={20} />
-                    <span className="count">0</span>Wishlist
+                    <span className="count">{cartItems.length}</span>Wishlist
                   </Link>
                 </li>
                 <li className="nav-cart">
-                  <Link
-                    // to="#shoppingCart"
-                    // data-bs-toggle="modal"
-                    className="nav-icon-item"
-                    onClick={toggleCart}
-                  >
+                  <Link className="nav-icon-item" onClick={toggleCart}>
                     <FiShoppingCart size={20} />
-                    Cart <span className="count">0</span>
+                    Cart <span className="count">{cart.length}</span>
                   </Link>
                 </li>
               </ul>
@@ -178,7 +176,25 @@ const Header = ({ toggleCart, categories }) => {
                                 key={category.id}
                                 className="vertical-item level1 toggle-menu"
                               >
-                                <Link className="menu-link" to="/product">
+                                <Link
+                                  className="menu-link"
+                                  to="/product"
+                                  onClick={() => {
+                                    localStorage.setItem(
+                                      "selectedCategory",
+                                      category.id,
+                                    );
+
+                                    window.dispatchEvent(
+                                      new CustomEvent("localStorageChange", {
+                                        detail: {
+                                          key: "selectedCategory",
+                                          value: category.id,
+                                        },
+                                      }),
+                                    );
+                                  }}
+                                >
                                   <span className="icon_items">
                                     <img
                                       className="lazyload"
@@ -237,6 +253,9 @@ const Header = ({ toggleCart, categories }) => {
                       to="/product"
                       className={({ isActive }) =>
                         isActive ? "item-link active" : "item-link"
+                      }
+                      onClick={() =>
+                        localStorage.setItem("selectedCategory", "all")
                       }
                     >
                       Products

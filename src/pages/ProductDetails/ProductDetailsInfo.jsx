@@ -3,15 +3,17 @@ import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs } from "swiper/modules";
 import HoverZoom from "../../components/HoverZoom";
-import { FaShoppingCart, FaTruck } from "react-icons/fa";
+import { FaHeart, FaShoppingCart, FaTruck } from "react-icons/fa";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { Link } from "react-router-dom";
-import ModalFindSize from "../../components/Modal/ModalFindSize";
+// import ModalFindSize from "../../components/Modal/ModalFindSize";
 import ModalShareSocial from "../../components/Modal/ModalShareSocial";
 import ModalDeliveryReturn from "../../components/Modal/ModalDeliveryReturn";
+import { useCartContext } from "../../context/CartContext";
+import { AiOutlineHeart } from "react-icons/ai";
 
 const productImages = [
   { src: "/images/products/brown-2.jpg", color: "brown" },
@@ -24,12 +26,40 @@ const productImages = [
   { src: "/images/products/black-4.jpg", color: "black" },
 ];
 
-const ProductDetailsInfo = ({ toggleCart }) => {
+const ProductDetailsInfo = ({ toggleCart, product }) => {
+  const { addToWishlist, isInWishlist, removeWishlistItem, addToCart } =
+    useCartContext();
+
+  // State to keep track of the quantity
+  const [quantity, setQuantity] = useState(1);
+
+  // Function to handle the decrement button click
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  // Function to handle the increment button click
+  const handleIncrement = () => {
+    quantity < product.p_purchase_stock
+      ? setQuantity(quantity + 1)
+      : setQuantity(product.p_purchase_stock);
+  };
+
+  // Function to handle manual input change (optional)
+  const handleInputChange = (event) => {
+    const value = parseInt(event.target.value, 10);
+    if (!isNaN(value) && value > 0) {
+      setQuantity(value);
+    }
+  };
+
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [zoomData, setZoomData] = useState(null);
   const [popupOpen, setPopupOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [openSizeModal, setOpenSizeModal] = useState(false);
+  // const [openSizeModal, setOpenSizeModal] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
   const [openDeliveryReturnModal, setOpenDeliveryReturnModal] = useState(false);
 
@@ -42,8 +72,6 @@ const ProductDetailsInfo = ({ toggleCart }) => {
 
   return (
     <Wrapper>
- 
-
       <section className="flat-spacing-4 pt_0 my-4">
         <div className="tf-main-product section-image-zoom zoom-active">
           <div className="container">
@@ -157,63 +185,57 @@ const ProductDetailsInfo = ({ toggleCart }) => {
               <div className="col-md-6">
                 <div className="tf-product-info-wrap">
                   <div className="product-info-list">
-                    <h5 className="mb-4">Cotton Jersey Top</h5>
+                    <h5 className="mb-4">
+                      {product?.p_name} ({product?.p_brand?.name})
+                    </h5>
 
                     <div className="product-single_attribure instock">
                       <label>Availability: </label>
-                      In Stock
+                      {product?.p_purchase_stock > 0 ? (
+                        <span className="text-success">In Stock</span>
+                      ) : (
+                        <span className="text-danger">Out of Stock</span>
+                      )}
                     </div>
 
                     <div className="product-single_attribure">
                       <label>Product Code:</label>
-                      <span className="product-single__type_sku"> GHTHJ </span>
+                      <span className="product-single__type_sku">
+                        {" "}
+                        {product?.p_code}{" "}
+                      </span>
                     </div>
 
                     <div className="product-single_attribure">
                       <label>Category:</label>
-                      <span> Top</span>
+                      <span>
+                        {" "}
+                        {product?.p_category?.name} (
+                        {product?.p_sub_category?.name || "N/A"}){" "}
+                      </span>
                     </div>
-
-                    {/* <div className="product-single_attribure">
-                      <label>Tag:</label>
-                      <ul id="details" className="hlist">
-                        <li>
-                          <Link to="#" title="Show products matching tag Black">
-                            Black
-                          </Link>
-                          ,
-                        </li>
-
-                        <li>
-                          <Link
-                            to="#"
-                            title="Show products matching tag deal 2024/12/12"
-                          >
-                            deal 2024/12/12
-                          </Link>
-                          ,
-                        </li>
-
-                        <li>
-                          <Link
-                            to="#"
-                            title="Show products matching tag featured"
-                          >
-                            featured
-                          </Link>
-                        </li>
-                      </ul>
-                    </div> */}
 
                     <div className="product-info-price">
-                      <div className="price-on-sale">$8.00</div>
-                      <div className="compare-at-price">$30.00</div>
-                      <div className="badges-on-sale">
-                        <span>20</span>% OFF
-                      </div>
+                      {product?.p_payable_price !== product?.p_price ? (
+                        <>
+                          <div className="price-on-sale">
+                            {" "}
+                            ৳&nbsp;{product?.p_payable_price}
+                          </div>
+                          <div className="compare-at-price">
+                            {" "}
+                            ৳&nbsp;{product?.p_price}
+                          </div>
+                        </>
+                      ) : (
+                        <div className="price-on-sale text-dark">
+                          {" "}
+                          ৳&nbsp;{product?.p_payable_price}
+                        </div>
+                      )}
                     </div>
 
-                    <div className="product-info-variant-picker">
+                    {/* <div className="product-info-variant-picker">
                       <div className="variant-picker-item">
                         <div className="variant-picker-label">
                           Color:&nbsp;
@@ -335,34 +357,60 @@ const ProductDetailsInfo = ({ toggleCart }) => {
                           </label>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* Size MODAL */}
-                    <ModalFindSize
+                    {/* <ModalFindSize
                       isOpen={openSizeModal}
                       onClose={() => setOpenSizeModal(false)}
-                    />
+                    /> */}
 
                     <div className="product-options-bottom">
                       <div className="product-info-quantity">
                         <div className="quantity-title">Quantity :</div>
                         <div className="wg-quantity">
-                          <span className="btn-quantity btn-decrease">-</span>
+                          <span
+                            className="btn-quantity btn-decrease"
+                            onClick={handleDecrement}
+                          >
+                            -
+                          </span>
+
                           <input
                             type="text"
                             className="quantity-product"
-                            name="number"
-                            value="1"
+                            value={quantity}
+                            onChange={handleInputChange}
                           />
-                          <span className="btn-quantity btn-increase">+</span>
+
+                          <span
+                            className="btn-quantity btn-increase"
+                            onClick={handleIncrement}
+                          >
+                            +
+                          </span>
                         </div>
                       </div>
                       <div className="product-info-buy-button">
                         <form className="">
                           <Link
                             to="#"
+                            style={{
+                              pointerEvents:
+                                product.p_purchase_stock > 0 ? "auto" : "none",
+                              opacity: product.p_purchase_stock > 0 ? 1 : 0.5,
+                            }}
                             className="ss-btn justify-content-center fs-16 flex-grow-1 btn-add-to-cart"
-                            onClick={toggleCart}
+                            onClick={() => {
+                              // toggleCart();
+                              addToCart(
+                                product.id,
+                                quantity,
+                                null,
+                                null,
+                                product,
+                              );
+                            }}
                           >
                             <FaShoppingCart
                               size={20}
@@ -370,56 +418,39 @@ const ProductDetailsInfo = ({ toggleCart }) => {
                             />
                             <span>Add to cart -&nbsp;</span>
                             <span className="ss-qty-price total-price">
-                              $8.00
+                              ৳&nbsp;{product?.p_payable_price}
                             </span>
                           </Link>
                           <Link
                             to="#"
-                            className="product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action"
+                            className="product-btn-wishlist box-icon border-black d-flex align-items-center justify-content-center"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              if (!isInWishlist(product.id)) {
+                                addToWishlist(product.id, product);
+                              } else {
+                                removeWishlistItem(product.id);
+                              }
+                            }}
                           >
-                            <span className="icon icon-heart"></span>
-                            <span className="tooltip">Add to Wishlist</span>
-                            <span className="icon icon-delete"></span>
-                          </Link>
-                          <Link
-                            to="#compare"
-                            data-bs-toggle="offcanvas"
-                            className="product-btn-wishlist hover-tooltip box-icon bg_white compare btn-icon-action"
-                          >
-                            <span className="icon icon-compare"></span>
-                            <span className="tooltip">Add to Compare</span>
-                            <span className="icon icon-check"></span>
+                            {isInWishlist(product.id) ? (
+                              <FaHeart size={16} color="red" />
+                            ) : (
+                              <AiOutlineHeart size={16} color="black" />
+                            )}
+
+                            <span className="tooltip">
+                              {isInWishlist(product.id)
+                                ? "Already in Wishlist"
+                                : "Add to Wishlist"}
+                            </span>
                           </Link>
                         </form>
                       </div>
                     </div>
 
                     <div className="product-info-extra-link">
-                      {/* <Link
-                        to="#compare_color"
-                        data-bs-toggle="modal"
-                        className="tf-product-extra-icon"
-                      >
-                        <div className="icon">
-                          <img src="images/item/compare.svg" alt="" />
-                        </div>
-                        <div className="text fw-6">Compare color</div>
-                      </Link> */}
-
-                      {/* <Link
-                        to="#ask_question"
-                        data-bs-toggle="modal"
-                        className="tf-product-extra-icon"
-                      >
-                        <div className="icon">
-                          <i className="icon-question"></i>
-                        </div>
-                        <div className="text fw-6">Ask Link question</div>
-                      </Link> */}
-
                       <Link
-                        // to="#delivery_return"
-                        // data-bs-toggle="modal"
                         className="tf-product-extra-icon"
                         onClick={() => setOpenDeliveryReturnModal(true)}
                       >
@@ -430,8 +461,6 @@ const ProductDetailsInfo = ({ toggleCart }) => {
                       </Link>
 
                       <Link
-                        // to="#share_social"
-                        // data-bs-toggle="modal"
                         className="tf-product-extra-icon"
                         onClick={() => setOpenShareModal(true)}
                       >
@@ -441,6 +470,7 @@ const ProductDetailsInfo = ({ toggleCart }) => {
                         <div className="text fw-6">Share</div>
                       </Link>
                     </div>
+
                     {/* Delivery & Return MODAL */}
                     <ModalDeliveryReturn
                       isOpen={openDeliveryReturnModal}
@@ -466,31 +496,10 @@ const ProductDetailsInfo = ({ toggleCart }) => {
                       </div>
                     </div>
 
-                    {/* <div className="ss-pickup-availability">
-                      <div>
-                        <FaCheck size={18} color="#5bb954" />
-                      </div>
-                      <div>
-                        <p>
-                          Pickup available at
-                          <span className="fw-6">Toronto - Spadina Avenue</span>
-                          <br />
-                          Usually ready in 24 hours
-                        </p>
-                        <Link
-                          to="#pickup_available"
-                          data-bs-toggle="modal"
-                          className=""
-                        >
-                          Check availability at other stores
-                        </Link>
-                      </div>
-                    </div> */}
-
                     <div className="product-info-trust-seal">
                       <label>Guaranteed safe checkout:</label>
                       <div className="ss-payment">
-                        <img src="images/payments/img-1.png" alt="" />
+                        <img src="/images/payments/img-1.png" alt="" />
                       </div>
                     </div>
                   </div>
@@ -679,6 +688,35 @@ const Wrapper = styled.section`
       width: 32px !important;
       height: 32px !important;
     }
+  }
+
+  .product-btn-wishlist {
+    position: relative;
+    display: inline-block;
+  }
+
+  .product-btn-wishlist .tooltip {
+    visibility: hidden;
+    width: max-content;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    position: absolute;
+    z-index: 10;
+    bottom: 125%; /* above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+  }
+
+  .product-btn-wishlist:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
   }
 `;
 

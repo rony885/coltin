@@ -5,7 +5,6 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
 import about from "../../DataJs/about.js";
 
 const Team = () => {
@@ -18,7 +17,7 @@ const Team = () => {
 
   return (
     <Wrapper>
-      <div className="widget-ourteam owl-style1 flat-spacing-17">
+      <div className="widget-ourteam owl-style1 flat-spacing-17 mb-4">
         <div className="container">
           <div className="box-title justify-content-center">
             <h3>Meet Our Team</h3>
@@ -62,6 +61,7 @@ const Team = () => {
                       <div className="cl-image">
                         <img
                           className="img-product lazyloaded"
+                          data-src={member.img}
                           src={member.img}
                           alt={member.name}
                         />

@@ -1,72 +1,17 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
-
-// const NotFound = () => {
-//   return (
-//     <>
-//       <div className="breadcrumb">
-//         <div className="container">
-//           <div className="breadcrumbtitle">
-//             <h2>Contact</h2>
-//           </div>
-//           <div className="breadcrumb-wrap d-flex justify-content-center flex-wrap align-items-center">
-//             <div className="breadcrumb-list">
-//               <Link to="/" className="text">
-//                 Home
-//               </Link>
-//               <i className="icon icon-arrow-right"></i>
-//               <Link to="#" className="text">
-//                 Contact
-//               </Link>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-
-//       <div className="page-contact">
-//         <div className="container">
-//           <h1 className="page-title">404 - Page Not Found</h1>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default NotFound;
-
 import React from "react";
 import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
     <>
-      {/* Breadcrumb */}
-      <div className="breadcrumb">
-        <div className="container text-center">
-          <div className="breadcrumbtitle">
-            <h2>Page Not Found</h2>
-          </div>
-
-          <div className="breadcrumb-wrap d-flex justify-content-center align-items-center">
-            <div className="breadcrumb-list">
-              <Link to="/" className="text">
-                Home
-              </Link>
-              <i className="icon icon-arrow-right mx-2"></i>
-              <span className="text">404 Error</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* 404 Content */}
-      <div className="page-contact py-5">
+      <div className="page-contact py-5 my-4">
         <div className="container text-center">
           <h1
             style={{
               fontSize: "120px",
               fontWeight: "700",
-              color: "#e5e5e5",
+              color: "#000",
               lineHeight: "1",
             }}
           >

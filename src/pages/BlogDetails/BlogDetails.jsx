@@ -29,7 +29,7 @@ const BlogDetails = () => {
                     <div className="image">
                       <img
                         className="lazyload"
-                        // data-src="/images/shop/article/image-1.jpg"
+                        data-src={findBlogDetails && findBlogDetails.img}
                         src={findBlogDetails && findBlogDetails.img}
                         alt="img-blog"
                       />
@@ -74,16 +74,6 @@ const BlogDetails = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="btn-sidebar-mobile left">
-        <button
-          data-bs-toggle="offcanvas"
-          data-bs-target="#sidebarmobile"
-          aria-controls="offcanvas"
-        >
-          <i className="icon-open"></i>
-        </button>
       </div>
     </>
   );

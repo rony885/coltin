@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AiOutlineEye, AiOutlineHeart } from "react-icons/ai";
 import { BsCart } from "react-icons/bs";
-import { FiFilter, FiRepeat, FiX } from "react-icons/fi";
+import { FiFilter, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { PiCaretLineLeftBold, PiCaretLineRightBold } from "react-icons/pi";
 import axios from "axios";
 import Loader2 from "../../components/Loader/Loader2";
+import { useCartContext } from "../../context/CartContext";
+import { FaHeart } from "react-icons/fa";
 
 const Product = ({
   toggleFilterSidebar,
@@ -16,6 +18,8 @@ const Product = ({
   subCategories,
   brands,
 }) => {
+  const { addToWishlist, isInWishlist, removeWishlistItem } = useCartContext();
+
   const [grid, setGrid] = useState(4); // default grid-4
   const [open, setOpen] = useState(false);
   const [openWidget, setOpenWidget] = useState({
@@ -107,6 +111,29 @@ const Product = ({
   const handleSubCategorySearch = (e) => setSubCategorySearch(e.target.value);
   const handleBrandSearch = (e) => setBrandSearch(e.target.value);
 
+  // Sync category from localStorage when it changes
+  useEffect(() => {
+    const syncFromLocalStorage = (e) => {
+      if (e.detail?.key === "selectedCategory") {
+        const newCategory = String(e.detail.value);
+
+        setSelectedCategory(newCategory);
+        setSelectedSubCategory("all");
+        setCurrentPage(1);
+      }
+    };
+
+    window.addEventListener("localStorageChange", syncFromLocalStorage);
+
+    return () => {
+      window.removeEventListener("localStorageChange", syncFromLocalStorage);
+    };
+  }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, selectedSubCategory, selectedBrand]);
+
   // Price Range
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
 
@@ -178,7 +205,7 @@ const Product = ({
   ]);
 
   // destructuring backend data safely
-  const { results: arr = [], total_pages: totalPages = 1, count = 0 } = data;
+  const { results: arr = [], total_pages: totalPages = 1, count = null } = data;
 
   // Pagination Handlers
   const handlePageChange = (newPage) => {
@@ -207,7 +234,7 @@ const Product = ({
     <Wrapper>
       <section className="flat-spacing-0 my-4">
         <div className="container">
-          <div className="ss-shop-control grid-3 align-items-center">
+          <div className="ss-shop-control d-flex justify-content-between align-items-center wwwxxxyyy">
             <ul className="ss-control-layout d-flex justify-content-start align-items-center">
               {[2, 3, 4].map((num) => (
                 <li
@@ -312,8 +339,6 @@ const Product = ({
               <div className="d-flex justify-content-start align-items-center gap-2 mb-4">
                 <div className="ss-control-filter">
                   <Link
-                    // to="#filterShop"
-                    // data-bs-toggle="offcanvas"
                     className="btn-filter"
                     onClick={toggleFilterSidebar}
                     style={{ border: "1px solid #F93355" }}
@@ -336,17 +361,14 @@ const Product = ({
               </div>
 
               {/* Price */}
-                 <div className="widget-facet">
+              <div className="widget-facet">
                 <div
                   className="facet-title mb-0"
-                  // data-bs-target="#price"
-                  // data-bs-toggle="collapse"
                   aria-expanded="true"
                   aria-controls="price"
                   role="button"
                 >
                   <span className="mb-0">Price</span>
-                  {/* <span className="icon icon-arrow-up"></span> */}
                 </div>
                 <div id="price" className="collapse show mt-0">
                   <div className="widget-price filter-price my-1">
@@ -535,8 +557,6 @@ const Product = ({
                   </ul>
                 )}
               </div>
-
-           
             </aside>
 
             <div className="products-listing wrapper-control-shop ss-shop-content">
@@ -570,7 +590,7 @@ const Product = ({
                               <div className="product-item-container">
                                 <div className="left-block">
                                   <Link
-                                    to="/product-details"
+                                    to={`/product-details/${product.id}`}
                                     className="product-img"
                                   >
                                     <span
@@ -621,31 +641,34 @@ const Product = ({
                                       />
                                     </span>
                                   </Link>
+
                                   <div className="list-product-btn column-right">
                                     <Link
                                       to="#"
-                                      className="box-icon bg_white wishlist btn-icon-action"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        if (!isInWishlist(product.id)) {
+                                          addToWishlist(product.id, product);
+                                        } else {
+                                          removeWishlistItem(product.id);
+                                        }
+                                      }}
+                                      className="box-icon bg_white wishlist ss-btn-loading"
                                     >
-                                      <AiOutlineHeart size={16} />
+                                      {isInWishlist(product.id) ? (
+                                        <FaHeart size={16} color="red" />
+                                      ) : (
+                                        <AiOutlineHeart size={16} />
+                                      )}
+
                                       <span className="tooltip">
-                                        Add to Wishlist
+                                        {isInWishlist(product.id)
+                                          ? "Already in Wishlist"
+                                          : "Add to Wishlist"}
                                       </span>
-                                      <span className="icon icon-delete"></span>
                                     </Link>
+
                                     <Link
-                                      to="#compare"
-                                      data-bs-toggle="offcanvas"
-                                      className="box-icon bg_white compare btn-icon-action"
-                                    >
-                                      <FiRepeat size={16} />
-                                      <span className="tooltip">
-                                        Add to Compare
-                                      </span>
-                                      <span className="icon icon-check"></span>
-                                    </Link>
-                                    <Link
-                                      // to="#quick_view"
-                                      // data-bs-toggle="modal"
                                       className="box-icon bg_white quickview ss-btn-loading"
                                       onClick={openQuickView}
                                     >
@@ -689,7 +712,7 @@ const Product = ({
                                     )}
                                     <h4 className="title-product">
                                       <Link
-                                        to="/product-details"
+                                        to={`/product-details/${product.id}`}
                                         className="title link"
                                         style={{
                                           fontSize: "12px",
@@ -714,7 +737,7 @@ const Product = ({
                                         </>
                                       ) : (
                                         <div className="product-price">
-                                          ৳&nbsp;{product?.p_price}
+                                          ৳&nbsp;{product?.p_payable_price}
                                         </div>
                                       )}
                                     </div>
@@ -819,6 +842,7 @@ const Product = ({
           </div>
         </div>
       </section>
+
       <div className="btn-sidebar-style2">
         <button data-bs-toggle="offcanvas" data-bs-target="#sidebarmobile">
           <i className="icon icon-sidebar-2"></i>
@@ -828,6 +852,14 @@ const Product = ({
   );
 };
 
-const Wrapper = styled.section``;
+const Wrapper = styled.section`
+  @media only screen and (max-width: 767px) {
+    .wwwxxxyyy,
+    .pagination {
+      flex-direction: column !important;
+      gap: 2px !important;
+    }
+  }
+`;
 
 export default Product;
