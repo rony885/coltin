@@ -235,7 +235,7 @@ const ModalQuickView = ({ isOpen, onClose, toggleCart }) => {
                     <div className="quantity-title">Quantity</div>
                     <div className="wg-quantity">
                       <span className="btn-quantity minus-btn">-</span>
-                      <input type="text" defaultValue="1" />
+                      <input type="text" />
                       <span className="btn-quantity plus-btn">+</span>
                     </div>
                   </div>

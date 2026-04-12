@@ -6,6 +6,11 @@ import ServiceBox from "./ServiceBox";
 import Product from "./Product";
 import ProductRecomended from "./ProductRecomended";
 
+import NewArrivals from "./NewArrivals";
+import FeaturedOffers from "./FeaturedOffers";
+import Video from "./Video";
+import Brand from "./Brand";
+
 const Home = ({ openQuickView, categories }) => {
   return (
     <div>
@@ -13,7 +18,11 @@ const Home = ({ openQuickView, categories }) => {
       <Categories categories={categories} />
       <ProductDeal openQuickView={openQuickView} />
       <Product openQuickView={openQuickView} />
+      <NewArrivals />
       <ProductRecomended openQuickView={openQuickView} />
+      <FeaturedOffers />
+      <Video />
+      <Brand />
       <ServiceBox />
     </div>
   );

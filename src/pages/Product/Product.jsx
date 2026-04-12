@@ -18,7 +18,8 @@ const Product = ({
   subCategories,
   brands,
 }) => {
-  const { addToWishlist, isInWishlist, removeWishlistItem } = useCartContext();
+  const { addToWishlist, isInWishlist, removeWishlistItem, addToCart } =
+    useCartContext();
 
   const [grid, setGrid] = useState(4); // default grid-4
   const [open, setOpen] = useState(false);
@@ -745,9 +746,29 @@ const Product = ({
                                   {product?.p_purchase_stock > 0 && (
                                     <div className="button-link">
                                       <Link
-                                        to="#quick_add"
-                                        data-bs-toggle="modal"
+                                        // to="#quick_add"
+                                        // data-bs-toggle="modal"
                                         className="btn-addToCart grl btn_df"
+                                        // onClick={() => {
+                                        //   toggleCart();
+                                        //   addToCart(
+                                        //     product.id,
+                                        //     quantity,
+                                        //     null,
+                                        //     null,
+                                        //     product,
+                                        //   );
+                                        // }}
+
+                                        onClick={() => {
+                                          addToCart(
+                                            product.id,
+                                            1, // ✅ FIXED
+                                            null,
+                                            null,
+                                            product,
+                                          );
+                                        }}
                                       >
                                         <BsCart size={20} />
                                         <span>Add to cart</span>

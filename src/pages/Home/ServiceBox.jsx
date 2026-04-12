@@ -1,8 +1,11 @@
 import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
+
+// ✅ Swiper
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+
+import "swiper/css";
 
 const services = [
   {
@@ -32,60 +35,54 @@ const services = [
 ];
 
 const ServiceBox = () => {
-  const settings = {
-    dots: false,
-    arrows: false,
-    infinite: false,
-    speed: 600,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: { slidesToShow: 4 },
-      },
-      {
-        breakpoint: 992,
-        settings: { slidesToShow: 3 },
-      },
-      {
-        breakpoint: 768,
-        settings: { slidesToShow: 2 },
-      },
-      {
-        breakpoint: 576,
-        settings: { slidesToShow: 1 },
-      },
-    ],
-  };
-
   return (
     <div className="wrapper-service wow fadeInUp" data-wow-delay="0s">
       <div className="container">
         <div className="wrap-carousel">
-          <Slider {...settings}>
-            {services.map((service, index) => (
-              <div key={index} className="item-services">
-                <div className="service_inner">
-                  <div className="service-ico">
-                    <Link className="image" to="#">
-                      <img
-                        className="lazyload"
-                        src={service.img}
-                        alt={service.title}
-                      />
-                    </Link>
-                  </div>
-                  <div className="service-info">
-                    <h4>{service.title}</h4>
-                    <p className="des">{service.description}</p>
+          <Swiper
+            modules={[Autoplay]}
+            spaceBetween={20}
+            slidesPerView={1} // ✅ IMPORTANT (fix reload issue)
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+            }}
+            speed={600}
+            breakpoints={{
+              320: { slidesPerView: 1 },
+              375: { slidesPerView: 1 },
+              425: { slidesPerView: 1 },
+              576: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              992: { slidesPerView: 3 },
+              1200: { slidesPerView: 4 },
+            }}
+          >
+            {services.map((service) => (
+              <SwiperSlide key={service.id}>
+                <div className="item-services">
+                  <div className="service_inner">
+                    {/* Image */}
+                    <div className="service-ico">
+                      <Link className="image" to="#">
+                        <img
+                          className="lazyload"
+                          src={service.img}
+                          alt={service.title}
+                        />
+                      </Link>
+                    </div>
+
+                    {/* Content */}
+                    <div className="service-info">
+                      <h4>{service.title}</h4>
+                      <p className="des">{service.description}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </SwiperSlide>
             ))}
-          </Slider>
+          </Swiper>
         </div>
       </div>
     </div>

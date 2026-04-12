@@ -118,7 +118,7 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         className="tf-check"
                         id="availability-1"
                       />
-                      <label for="availability-1" className="label">
+                      <label htmlFor="availability-1" className="label">
                         <span>In stock</span>&nbsp;<span>(14)</span>
                       </label>
                     </li>
@@ -129,7 +129,7 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         className="tf-check"
                         id="availability-2"
                       />
-                      <label for="availability-2" className="label">
+                      <label htmlFor="availability-2" className="label">
                         <span>Out of stock</span>&nbsp;<span>(2)</span>
                       </label>
                     </li>
@@ -159,14 +159,14 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         type="range"
                         min="0"
                         max="300"
-                        value="0"
+                        defaultValue="0"
                       />
                       <input
                         className="range-max"
                         type="range"
                         min="0"
                         max="300"
-                        value="300"
+                        defaultValue="300"
                       />
                     </div>
                     <div className="box-title-price">
@@ -207,7 +207,7 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         className="tf-check"
                         id="brand-1"
                       />
-                      <label for="brand-1" className="label">
+                      <label htmlFor="brand-1" className="label">
                         <span>Entry</span>&nbsp;<span>(8)</span>
                       </label>
                     </li>
@@ -218,7 +218,7 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         className="tf-check"
                         id="brand-2"
                       />
-                      <label for="brand-2" className="label">
+                      <label htmlFor="brand-2" className="label">
                         <span>M&amp;H</span>&nbsp;<span>(8)</span>
                       </label>
                     </li>
@@ -245,9 +245,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_beige"
                         id="beige"
-                        value="beige"
+                        defaultValue="beige"
                       />
-                      <label for="beige" className="label">
+                      <label htmlFor="beige" className="label">
                         <span>Beige</span>&nbsp;<span>(3)</span>
                       </label>
                     </li>
@@ -257,9 +257,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_dark"
                         id="black"
-                        value="black"
+                        defaultValue="black"
                       />
-                      <label for="black" className="label">
+                      <label htmlFor="black" className="label">
                         <span>Black</span>&nbsp;<span>(18)</span>
                       </label>
                     </li>
@@ -269,9 +269,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_blue-2"
                         id="blue"
-                        value="blue"
+                        defaultValue="blue"
                       />
-                      <label for="blue" className="label">
+                      <label htmlFor="blue" className="label">
                         <span>Blue</span>&nbsp;<span>(3)</span>
                       </label>
                     </li>
@@ -281,9 +281,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_brown"
                         id="brown"
-                        value="brown"
+                        defaultValue="brown"
                       />
-                      <label for="brown" className="label">
+                      <label htmlFor="brown" className="label">
                         <span>Brown</span>&nbsp;<span>(3)</span>
                       </label>
                     </li>
@@ -293,9 +293,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_cream"
                         id="cream"
-                        value="cream"
+                        defaultValue="cream"
                       />
-                      <label for="cream" className="label">
+                      <label htmlFor="cream" className="label">
                         <span>Cream</span>&nbsp;<span>(1)</span>
                       </label>
                     </li>
@@ -305,9 +305,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_dark-beige"
                         id="dark-beige"
-                        value="dark-beige"
+                        defaultValue="dark-beige"
                       />
-                      <label for="dark-beige" className="label">
+                      <label htmlFor="dark-beige" className="label">
                         <span>Dark Beige</span>&nbsp;<span>(1)</span>
                       </label>
                     </li>
@@ -317,9 +317,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_dark-blue"
                         id="dark-blue"
-                        value="dark-blue"
+                        defaultValue="dark-blue"
                       />
-                      <label for="dark-blue" className="label">
+                      <label htmlFor="dark-blue" className="label">
                         <span>Dark Blue</span>&nbsp;<span>(3)</span>
                       </label>
                     </li>
@@ -329,9 +329,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_dark-green"
                         id="dark-green"
-                        value="dark-green"
+                        defaultValue="dark-green"
                       />
-                      <label for="dark-green" className="label">
+                      <label htmlFor="dark-green" className="label">
                         <span>Dark Green</span>&nbsp;<span>(1)</span>
                       </label>
                     </li>
@@ -341,9 +341,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_dark-grey"
                         id="dark-grey"
-                        value="dark-grey"
+                        defaultValue="dark-grey"
                       />
-                      <label for="dark-grey" className="label">
+                      <label htmlFor="dark-grey" className="label">
                         <span>Dark Grey</span>&nbsp;<span>(1)</span>
                       </label>
                     </li>
@@ -353,9 +353,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_grey"
                         id="grey"
-                        value="grey"
+                        defaultValue="grey"
                       />
-                      <label for="grey" className="label">
+                      <label htmlFor="grey" className="label">
                         <span>Grey</span>&nbsp;<span>(2)</span>
                       </label>
                     </li>
@@ -365,9 +365,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_light-blue"
                         id="light-blue"
-                        value="light-blue"
+                        defaultValue="light-blue"
                       />
-                      <label for="light-blue" className="label">
+                      <label htmlFor="light-blue" className="label">
                         <span>Light Blue</span>&nbsp;<span>(5)</span>
                       </label>
                     </li>
@@ -377,9 +377,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_light-green"
                         id="light-green"
-                        value="light-green"
+                        defaultValue="light-green"
                       />
-                      <label for="light-green" className="label">
+                      <label htmlFor="light-green" className="label">
                         <span>Light Green</span>&nbsp;<span>(3)</span>
                       </label>
                     </li>
@@ -389,9 +389,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_light-grey"
                         id="light-grey"
-                        value="light-grey"
+                        defaultValue="light-grey"
                       />
-                      <label for="light-grey" className="label">
+                      <label htmlFor="light-grey" className="label">
                         <span>Light Grey</span>&nbsp;<span>(1)</span>
                       </label>
                     </li>
@@ -401,9 +401,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_light-pink"
                         id="light-pink"
-                        value="light-pink"
+                        defaultValue="light-pink"
                       />
-                      <label for="light-pink" className="label">
+                      <label htmlFor="light-pink" className="label">
                         <span>Light Pink</span>&nbsp;<span>(2)</span>
                       </label>
                     </li>
@@ -413,9 +413,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_purple"
                         id="light-purple"
-                        value="light-purple"
+                        defaultValue="light-purple"
                       />
-                      <label for="light-purple" className="label">
+                      <label htmlFor="light-purple" className="label">
                         <span>Light Purple</span>&nbsp;<span>(2)</span>
                       </label>
                     </li>
@@ -425,9 +425,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_light-yellow"
                         id="light-yellow"
-                        value="light-yellow"
+                        defaultValue="light-yellow"
                       />
-                      <label for="light-yellow" className="label">
+                      <label htmlFor="light-yellow" className="label">
                         <span>Light Yellow</span>&nbsp;<span>(1)</span>
                       </label>
                     </li>
@@ -437,9 +437,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_orange"
                         id="orange"
-                        value="orange"
+                        defaultValue="orange"
                       />
-                      <label for="orange" className="label">
+                      <label htmlFor="orange" className="label">
                         <span>Orange</span>&nbsp;<span>(1)</span>
                       </label>
                     </li>
@@ -449,9 +449,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_pink"
                         id="pink"
-                        value="pink"
+                        defaultValue="pink"
                       />
-                      <label for="pink" className="label">
+                      <label htmlFor="pink" className="label">
                         <span>Pink</span>&nbsp;<span>(2)</span>
                       </label>
                     </li>
@@ -461,9 +461,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_taupe"
                         id="taupe"
-                        value="taupe"
+                        defaultValue="taupe"
                       />
-                      <label for="taupe" className="label">
+                      <label htmlFor="taupe" className="label">
                         <span>Taupe</span>&nbsp;<span>(1)</span>
                       </label>
                     </li>
@@ -473,9 +473,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_white"
                         id="white"
-                        value="white"
+                        defaultValue="white"
                       />
-                      <label for="white" className="label">
+                      <label htmlFor="white" className="label">
                         <span>White</span>&nbsp;<span>(14)</span>
                       </label>
                     </li>
@@ -485,9 +485,9 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         name="color"
                         className="ss-check-color bg_yellow"
                         id="yellow"
-                        value="yellow"
+                        defaultValue="yellow"
                       />
-                      <label for="yellow" className="label">
+                      <label htmlFor="yellow" className="label">
                         <span>Yellow</span>&nbsp;<span>(1)</span>
                       </label>
                     </li>
@@ -513,10 +513,10 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         type="radio"
                         name="size"
                         className="ss-check tf-check-size"
-                        value="s"
+                        defaultValue="s"
                         id="s"
                       />
-                      <label for="s" className="label">
+                      <label htmlFor="s" className="label">
                         <span>S</span>&nbsp;<span>(7)</span>
                       </label>
                     </li>
@@ -525,10 +525,10 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         type="radio"
                         name="size"
                         className="ss-check tf-check-size"
-                        value="m"
+                        defaultValue="m"
                         id="m"
                       />
-                      <label for="m" className="label">
+                      <label htmlFor="m" className="label">
                         <span>M</span>&nbsp;<span>(8)</span>
                       </label>
                     </li>
@@ -537,10 +537,10 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         type="radio"
                         name="size"
                         className="ss-check tf-check-size"
-                        value="l"
+                        defaultValue="l"
                         id="l"
                       />
-                      <label for="l" className="label">
+                      <label htmlFor="l" className="label">
                         <span>L</span>&nbsp;<span>(8)</span>
                       </label>
                     </li>
@@ -549,10 +549,10 @@ const FilterSidebar = ({ filterSidebarOpen, closeFilterSidebar }) => {
                         type="radio"
                         name="size"
                         className="ss-check tf-check-size"
-                        value="xl"
+                        defaultValue="xl"
                         id="xl"
                       />
-                      <label for="xl" className="label">
+                      <label htmlFor="xl" className="label">
                         <span>XL</span>&nbsp;<span>(6)</span>
                       </label>
                     </li>

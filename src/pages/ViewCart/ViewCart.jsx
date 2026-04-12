@@ -101,7 +101,7 @@ const ViewCart = () => {
                                 <input
                                   type="text"
                                   name="number"
-                                  value={item.amount}
+                                  defaultValue={item.amount}
                                   readOnly
                                 />
                                 <span className="btn-quantity plus-btn">
@@ -160,17 +160,17 @@ const ViewCart = () => {
                             name="address[country]"
                             data-default=""
                           >
-                            <option value="---">Country</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Austria">Austria</option>
-                            <option value="Canada">Canada</option>
-                            <option value="Denmark">Denmark</option>
-                            <option value="Finland">Finland</option>
-                            <option value="France">France</option>
-                            <option value="Germany">Germany</option>
-                            <option value="Italy">Italy</option>
-                            <option value="Japan">Japan</option>
-                            <option value="Malaysia">Malaysia</option>
+                            <option defaultValue="---">Country</option>
+                            <option defaultValue="Australia">Australia</option>
+                            <option defaultValue="Austria">Austria</option>
+                            <option defaultValue="Canada">Canada</option>
+                            <option defaultValue="Denmark">Denmark</option>
+                            <option defaultValue="Finland">Finland</option>
+                            <option defaultValue="France">France</option>
+                            <option defaultValue="Germany">Germany</option>
+                            <option defaultValue="Italy">Italy</option>
+                            <option defaultValue="Japan">Japan</option>
+                            <option defaultValue="Malaysia">Malaysia</option>
                           </select>
                         </fieldset>
                         <fieldset className="field">
@@ -198,7 +198,7 @@ const ViewCart = () => {
                       type="text"
                       placeholder="Coupon code"
                       name="discount"
-                      value=""
+                      defaultValue=""
                       readOnly
                     />
                   </div>

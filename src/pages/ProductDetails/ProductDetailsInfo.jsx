@@ -252,7 +252,7 @@ const ProductDetailsInfo = ({ toggleCart, product }) => {
                           />
                           <label
                             className="hover-tooltip radius-60 color-btn"
-                            for="values-beige"
+                            htmlhtmlFor="values-beige"
                             data-color="beige"
                             data-value="Beige"
                           >
@@ -263,7 +263,7 @@ const ProductDetailsInfo = ({ toggleCart, product }) => {
                           <label
                             className="hover-tooltip radius-60 color-btn"
                             data-price="9"
-                            for="values-black"
+                            htmlFor="values-black"
                             data-color="black"
                             data-value="Black"
                           >
@@ -274,7 +274,7 @@ const ProductDetailsInfo = ({ toggleCart, product }) => {
                           <label
                             className="hover-tooltip radius-60 color-btn"
                             data-price="10"
-                            for="values-blue"
+                            htmlFor="values-blue"
                             data-color="blue"
                             data-value="Blue"
                           >
@@ -285,7 +285,7 @@ const ProductDetailsInfo = ({ toggleCart, product }) => {
                           <label
                             className="hover-tooltip radius-60 color-btn"
                             data-price="12"
-                            for="values-white"
+                            htmlFor="values-white"
                             data-color="white"
                             data-value="White"
                           >
@@ -323,7 +323,7 @@ const ProductDetailsInfo = ({ toggleCart, product }) => {
                           />
                           <label
                             className="style-text size-btn"
-                            for="values-s"
+                            htmlFor="values-s"
                             data-value="S"
                           >
                             <span>S</span>
@@ -332,7 +332,7 @@ const ProductDetailsInfo = ({ toggleCart, product }) => {
                           <label
                             className="style-text size-btn"
                             data-price="9"
-                            for="values-m"
+                            htmlFor="values-m"
                             data-value="M"
                           >
                             <span>M</span>
@@ -341,7 +341,7 @@ const ProductDetailsInfo = ({ toggleCart, product }) => {
                           <label
                             className="style-text size-btn"
                             data-price="10"
-                            for="values-l"
+                            htmlFor="values-l"
                             data-value="L"
                           >
                             <span>L</span>
@@ -350,7 +350,7 @@ const ProductDetailsInfo = ({ toggleCart, product }) => {
                           <label
                             className="style-text size-btn"
                             data-price="12"
-                            for="values-xl"
+                            htmlFor="values-xl"
                             data-value="XL"
                           >
                             <span>XL</span>

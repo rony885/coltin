@@ -38,10 +38,10 @@ const ModalQuickAdd = ({ toggleCart, onClose }) => {
                   </span>
                 </div>
                 <div className="variant-picker-values">
-                  <input id="values-orange" type="radio" name="color" checked />
+                  <input id="values-orange" type="radio" name="color" defaultChecked />
                   <label
                     className="hover-tooltip radius-60"
-                    for="values-orange"
+                    htmlFor="values-orange"
                     data-value="Orange"
                   >
                     <span className="btn-checkbox bg-color-orange"></span>
@@ -50,7 +50,7 @@ const ModalQuickAdd = ({ toggleCart, onClose }) => {
                   <input id="values-black" type="radio" name="color" />
                   <label
                     className="hover-tooltip radius-60"
-                    for="values-black"
+                    htmlFor="values-black"
                     data-value="Black"
                   >
                     <span className="btn-checkbox bg-color-black"></span>
@@ -59,7 +59,7 @@ const ModalQuickAdd = ({ toggleCart, onClose }) => {
                   <input id="values-white" type="radio" name="color" />
                   <label
                     className="hover-tooltip radius-60"
-                    for="values-white"
+                    htmlFor="values-white"
                     data-value="White"
                   >
                     <span className="btn-checkbox bg-color-white"></span>
@@ -73,20 +73,20 @@ const ModalQuickAdd = ({ toggleCart, onClose }) => {
                   <span className="fw-6 variant-picker-label-value">S</span>
                 </div>
                 <div className="variant-picker-values">
-                  <input type="radio" name="size" id="values-s" checked />
-                  <label className="style-text" for="values-s" data-value="S">
+                  <input type="radio" name="size" id="values-s" defaultChecked />
+                  <label className="style-text" htmlFor="values-s" data-value="S">
                     <span>S</span>
                   </label>
                   <input type="radio" name="size" id="values-m" />
-                  <label className="style-text" for="values-m" data-value="M">
+                  <label className="style-text" htmlFor="values-m" data-value="M">
                     <span>M</span>
                   </label>
                   <input type="radio" name="size" id="values-l" />
-                  <label className="style-text" for="values-l" data-value="L">
+                  <label className="style-text" htmlFor="values-l" data-value="L">
                     <span>L</span>
                   </label>
                   <input type="radio" name="size" id="values-xl" />
-                  <label className="style-text" for="values-xl" data-value="XL">
+                  <label className="style-text" htmlFor="values-xl" data-value="XL">
                     <span>XL</span>
                   </label>
                 </div>

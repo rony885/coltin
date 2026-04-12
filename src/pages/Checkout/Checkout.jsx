@@ -52,23 +52,23 @@ const Checkout = () => {
                       name="address[country]"
                       data-default=""
                     >
-                      <option value="---">---</option>
-                      <option value="Australia">Australia</option>
-                      <option value="Austria">Austria</option>
-                      <option value="Canada">Canada</option>
-                      <option value="Denmark">Denmark</option>
-                      <option value="Finland">Finland</option>
-                      <option value="France">France</option>
-                      <option value="Germany">Germany</option>
-                      <option value="Italy">Italy</option>
-                      <option value="Japan">Japan</option>
-                      <option value="Malaysia">Malaysia</option>
-                      <option value="Netherlands">Netherlands</option>
-                      <option value="New Zealand">New Zealand</option>
-                      <option value="Norway">Norway</option>
-                      <option value="Poland">Poland</option>
-                      <option value="Portugal">Portugal</option>
-                      <option value="Singapore">Singapore</option>
+                      <option defaultValue="---">---</option>
+                      <option defaultValue="Australia">Australia</option>
+                      <option defaultValue="Austria">Austria</option>
+                      <option defaultValue="Canada">Canada</option>
+                      <option defaultValue="Denmark">Denmark</option>
+                      <option defaultValue="Finland">Finland</option>
+                      <option defaultValue="France">France</option>
+                      <option defaultValue="Germany">Germany</option>
+                      <option defaultValue="Italy">Italy</option>
+                      <option defaultValue="Japan">Japan</option>
+                      <option defaultValue="Malaysia">Malaysia</option>
+                      <option defaultValue="Netherlands">Netherlands</option>
+                      <option defaultValue="New Zealand">New Zealand</option>
+                      <option defaultValue="Norway">Norway</option>
+                      <option defaultValue="Poland">Poland</option>
+                      <option defaultValue="Portugal">Portugal</option>
+                      <option defaultValue="Singapore">Singapore</option>
                     </select>
                   </div>
                 </fieldset>

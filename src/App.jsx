@@ -37,6 +37,12 @@ import Register from "./pages/Account/Register";
 
 import axios from "axios";
 
+import Account from "./pages/Account/Account";
+import AccountOrders from "./pages/Account/AccountOrders";
+import AccountAddress from "./pages/Account/AccountAddress";
+import AccountDetails from "./pages/Account/AccountDetails";
+import Faq from "./pages/Faq/Faq";
+
 function App() {
   const [cartOpen, setCartOpen] = useState(false);
   const [filterSidebarOpen, setFilterSidebarOpen] = useState(false);
@@ -155,8 +161,13 @@ function App() {
               <Route path="/view-cart" element={<ViewCart />} />
               <Route path="/checkout" element={<Checkout />} />
 
+              <Route path="/account" element={<Account />} />
+              <Route path="/account-orders" element={<AccountOrders />} />
+              <Route path="/account-address" element={<AccountAddress />} />
+              <Route path="/account-edit" element={<AccountDetails />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/faq" element={<Faq />} />
 
               <Route path="*" element={<NotFound />} />
             </Routes>

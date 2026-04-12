@@ -28,7 +28,7 @@ const iconPaths = [
 ];
 
 const Header = ({ toggleCart, categories }) => {
-  const { wishlist: cartItems ,cart} = useCartContext();
+  const { wishlist: cartItems, cart } = useCartContext();
 
   const location = useLocation();
   const isHome = location.pathname === "/";
@@ -75,7 +75,7 @@ const Header = ({ toggleCart, categories }) => {
               <ul className="nav-icon d-flex justify-content-end align-items-center gap-30">
                 <li className="nav-account">
                   <Link
-                    to="/login"
+                    to="/account"
                     // data-bs-toggle="modal"
                     className="nav-icon-item"
                   >
@@ -289,6 +289,16 @@ const Header = ({ toggleCart, categories }) => {
                       }
                     >
                       Contact
+                    </NavLink>
+                  </li>
+                  <li className="menu-item">
+                    <NavLink
+                      to="/faq"
+                      className={({ isActive }) =>
+                        isActive ? "item-link active" : "item-link"
+                      }
+                    >
+                      Faq
                     </NavLink>
                   </li>
                 </ul>

@@ -40,7 +40,7 @@ const Contact = () => {
                   />
                   <input type="hidden" name="utf8" defaultValue="✓" />
                   <div className="field">
-                    <label for="ContactFormName">Your Name *</label>
+                    <label htmlFor="ContactFormName">Your Name *</label>
                     <input
                       type="text"
                       id="ContactFormName"
@@ -51,7 +51,7 @@ const Contact = () => {
                     />
                   </div>
                   <div className="field">
-                    <label for="ContactFormEmail" className="">
+                    <label htmlFor="ContactFormEmail" className="">
                       Your Email *
                     </label>
                     <input
@@ -65,7 +65,7 @@ const Contact = () => {
                     />
                   </div>
                   <div className="field">
-                    <label for="ContactFormPhone">Your Phone Number *</label>
+                    <label htmlFor="ContactFormPhone">Your Phone Number *</label>
                     <input
                       type="tel"
                       id="ContactFormPhone"
@@ -77,7 +77,7 @@ const Contact = () => {
                     />
                   </div>
                   <div className="field">
-                    <label for="ContactFormMessage">Your Message *</label>
+                    <label htmlFor="ContactFormMessage">Your Message *</label>
                     <textarea
                       rows="10"
                       id="ContactFormMessage"

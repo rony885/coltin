@@ -48,7 +48,7 @@
 //               <fieldset>
 //                 <input
 //                   type="text"
-//                   value="https://ss-entry.myshopify.com/"
+//                   defaultValue="https://ss-entry.myshopify.com/"
 //                   tabindex="0"
 //                   aria-required="true"
 //                 />
@@ -140,7 +140,7 @@ const ModalShareSocial = ({ isOpen, onClose }) => {
                 <fieldset>
                   <input
                     type="text"
-                    value="https://ss-entry.myshopify.com/"
+                    defaultValue="https://ss-entry.myshopify.com/"
                     tabIndex={0}
                     aria-required="true"
                     readOnly
