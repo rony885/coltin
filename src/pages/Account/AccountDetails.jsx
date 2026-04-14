@@ -38,7 +38,7 @@ const AccountDetails = () => {
                       Account Details
                     </span>
                   </li>
-                
+
                   <li>
                     <Link to="/login" className="my-account-nav-item">
                       Logout

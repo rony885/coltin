@@ -65,7 +65,7 @@ const AccountOrders = () => {
                         <td>On hold</td>
                         <td>$200.0 for 1 items</td>
                         <td>
-                          <to to="my-account-orders-details">
+                          <to to="/account-orders-details">
                             <span>View</span>
                           </to>
                         </td>
@@ -76,7 +76,7 @@ const AccountOrders = () => {
                         <td>On hold</td>
                         <td>$300.0 for 3 items</td>
                         <td>
-                          <to to="my-account-orders-details">
+                          <to to="/account-orders-details">
                             <span>View</span>
                           </to>
                         </td>
@@ -87,7 +87,7 @@ const AccountOrders = () => {
                         <td>On hold</td>
                         <td>$400.0 for 2 items</td>
                         <td>
-                          <to to="my-account-orders-details">
+                          <to to="/account-orders-details">
                             <span>View</span>
                           </to>
                         </td>

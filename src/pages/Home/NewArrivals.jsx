@@ -85,7 +85,7 @@ const NewArrivals = () => {
             <div className="banner-deal col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
               <div className="deal__banner">
                 <Link to="#">
-                  <img src="images/slider/Banner_Deal7.jpg" alt="" />
+                  <img src="/images/slider/Banner_Deal7.jpg" alt="" />
                 </Link>
               </div>
 

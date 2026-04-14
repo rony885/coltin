@@ -10,25 +10,25 @@ import "swiper/css";
 const services = [
   {
     id: 1,
-    img: "images/policy/policy1.png",
+    img: "/images/policy/policy1.png",
     title: "Free Shipping",
     description: "On order over $49.00",
   },
   {
     id: 2,
-    img: "images/policy/policy2.png",
+    img: "/images/policy/policy2.png",
     title: "Money Guarantee",
     description: "Within 30 days for an exchange",
   },
   {
     id: 3,
-    img: "images/policy/policy3.png",
+    img: "/images/policy/policy3.png",
     title: "Online Support",
     description: "24 hours a day, 7 days a week",
   },
   {
     id: 4,
-    img: "images/policy/policy4.png",
+    img: "/images/policy/policy4.png",
     title: "Flexible Payment",
     description: "Pay with Multiple Credit Cards",
   },

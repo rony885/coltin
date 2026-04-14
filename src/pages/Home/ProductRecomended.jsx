@@ -19,17 +19,17 @@ const products = [
     name: "Cleveland Pochette",
     priceRegular: "$20.00",
     priceSale: "$10.00",
-    images: ["images/products/Fa_11a.jpg", "images/products/Fa_10a.jpg"],
+    images: ["/images/products/Fa_11a.jpg", "/images/products/Fa_10a.jpg"],
     colors: [
       {
         name: "Pastel Brown",
         class: "bg_pastel-brown",
-        image: "images/products/stroller-baby-brown.jpg",
+        image: "/images/products/stroller-baby-brown.jpg",
       },
       {
         name: "Black",
         class: "bg_dark",
-        image: "images/products/stroller-baby-black.jpg",
+        image: "/images/products/stroller-baby-black.jpg",
       },
     ],
   },
@@ -38,17 +38,17 @@ const products = [
     vendor: "Entry",
     name: "Yekaty Women Cardigan 3/4 Sleeves",
     priceRegular: "$17.30",
-    images: ["images/products/Fa_29a.jpg", "images/products/Fa_30a.jpg"],
+    images: ["/images/products/Fa_29a.jpg", "/images/products/Fa_30a.jpg"],
     colors: [
       {
         name: "Black",
         class: "bg_dark",
-        image: "images/products/stroller-baby-black3.jpg",
+        image: "/images/products/stroller-baby-black3.jpg",
       },
       {
         name: "Pastel Brown",
         class: "bg_pastel-brown",
-        image: "images/products/stroller-baby-brown.jpg",
+        image: "/images/products/stroller-baby-brown.jpg",
       },
       {
         name: "Pink",
@@ -62,7 +62,7 @@ const products = [
     vendor: "Entry",
     name: "Mens Leather Shoulder Small Bag",
     priceRegular: "$13.30",
-    images: ["images/products/Fa_31a.jpg", "images/products/Fa_32a.jpg"],
+    images: ["/images/products/Fa_31a.jpg", "images/products/Fa_32a.jpg"],
     colors: [
       {
         name: "Black",
@@ -72,12 +72,12 @@ const products = [
       {
         name: "Pastel Brown",
         class: "bg_pastel-brown",
-        image: "images/products/stroller-baby-brown.jpg",
+        image: "/images/products/stroller-baby-brown.jpg",
       },
       {
         name: "Pink",
         class: "bg_pink",
-        image: "images/products/stroller-baby-pink.jpg",
+        image: "/images/products/stroller-baby-pink.jpg",
       },
     ],
   },
@@ -87,22 +87,22 @@ const products = [
     name: "Women's 3/4 Length Sleeve VNeck",
     priceRegular: "$85.00",
     priceSale: "$70.00",
-    images: ["images/products/Fa_19a.jpg", "images/products/Fa_20a.jpg"],
+    images: ["/images/products/Fa_19a.jpg", "images/products/Fa_20a.jpg"],
     colors: [
       {
         name: "Yellow",
         class: "bg_yellow-4",
-        image: "images/products/stroller-baby-yellow.jpg",
+        image: "/images/products/stroller-baby-yellow.jpg",
       },
       {
         name: "Black",
         class: "bg_dark",
-        image: "images/products/stroller-baby-black4.jpg",
+        image: "/images/products/stroller-baby-black4.jpg",
       },
       {
         name: "Grey",
         class: "bg_grey",
-        image: "images/products/stroller-baby-grey.jpg",
+        image: "/images/products/stroller-baby-grey.jpg",
       },
     ],
   },
@@ -112,17 +112,17 @@ const products = [
     name: "Cleveland Pochette",
     priceRegular: "$20.00",
     priceSale: "$10.00",
-    images: ["images/products/Fa_11a.jpg", "images/products/Fa_10a.jpg"],
+    images: ["/images/products/Fa_11a.jpg", "/images/products/Fa_10a.jpg"],
     colors: [
       {
         name: "Pastel Brown",
         class: "bg_pastel-brown",
-        image: "images/products/stroller-baby-brown.jpg",
+        image: "/images/products/stroller-baby-brown.jpg",
       },
       {
         name: "Black",
         class: "bg_dark",
-        image: "images/products/stroller-baby-black.jpg",
+        image: "/images/products/stroller-baby-black.jpg",
       },
     ],
   },
@@ -131,22 +131,22 @@ const products = [
     vendor: "Entry",
     name: "Yekaty Women Cardigan 3/4 Sleeves",
     priceRegular: "$17.30",
-    images: ["images/products/Fa_29a.jpg", "images/products/Fa_30a.jpg"],
+    images: ["/images/products/Fa_29a.jpg", "images/products/Fa_30a.jpg"],
     colors: [
       {
         name: "Black",
         class: "bg_dark",
-        image: "images/products/stroller-baby-black3.jpg",
+        image: "/images/products/stroller-baby-black3.jpg",
       },
       {
         name: "Pastel Brown",
         class: "bg_pastel-brown",
-        image: "images/products/stroller-baby-brown.jpg",
+        image: "/images/products/stroller-baby-brown.jpg",
       },
       {
         name: "Pink",
         class: "bg_pink",
-        image: "images/products/stroller-baby-pink.jpg",
+        image: "/images/products/stroller-baby-pink.jpg",
       },
     ],
   },
